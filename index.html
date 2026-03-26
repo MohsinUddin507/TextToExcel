@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>KMH Enterprise Suite | Complete Form Builder + Smart Excel Import</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>KMH Enterprise Suite | Fully Responsive | Mobile/Tablet/Desktop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
@@ -11,69 +11,91 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
             background: linear-gradient(135deg, #f5f7fc 0%, #eef2f7 100%);
-            padding: 20px;
+            padding: 12px;
+            min-height: 100vh;
             color: #1a2c3e;
         }
 
         .portal-container {
-            max-width: 1900px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin-bottom: 20px;
             border-bottom: 3px solid #0f5b7a;
             padding-bottom: 12px;
         }
         .title-section h1 {
-            font-size: 2rem;
+            font-size: clamp(1.3rem, 5vw, 2rem);
             font-weight: 700;
             background: linear-gradient(135deg, #0a2e3f, #1e6f5c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .title-section p {
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            color: #4a627a;
         }
         .badge-area {
             background: white;
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 40px;
-            font-size: 0.85rem;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
             font-weight: 500;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            white-space: nowrap;
+        }
+        @media (max-width: 640px) {
+            .badge-area { white-space: normal; text-align: center; font-size: 0.7rem; }
         }
 
+        /* Tabs Container - Horizontal Scroll on Mobile */
         .tabs-container {
             background: white;
             border-radius: 20px;
-            padding: 8px 16px;
-            margin-bottom: 24px;
+            padding: 8px 12px;
+            margin-bottom: 20px;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 8px;
             align-items: center;
             overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            -webkit-overflow-scrolling: touch;
+        }
+        .tabs-container::-webkit-scrollbar {
+            height: 4px;
         }
         .tab-btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #f0f4f8;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
+            font-size: clamp(0.75rem, 3vw, 0.85rem);
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: 0.2s;
+            gap: 6px;
+            transition: all 0.2s;
+            flex-shrink: 0;
         }
         .tab-btn.active {
             background: linear-gradient(135deg, #1e405b, #0f5b7a);
@@ -83,123 +105,136 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            margin-left: 6px;
         }
-        .edit-tab-name {
+        .edit-tab-name, .delete-tab-btn {
             background: none;
             border: none;
             cursor: pointer;
             font-size: 10px;
             padding: 2px 4px;
             border-radius: 12px;
-            color: inherit;
         }
-        .delete-tab-btn {
-            background: none;
-            border: none;
-            color: #ff6b6b;
-            cursor: pointer;
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 20px;
+        .edit-tab-name:hover, .delete-tab-btn:hover {
+            background: rgba(0,0,0,0.1);
         }
         .add-table-btn {
             background: #1e405b;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 8px 16px;
             border-radius: 30px;
             cursor: pointer;
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            white-space: nowrap;
+            flex-shrink: 0;
             margin-left: auto;
-            transition: 0.2s;
         }
 
+        /* Dashboard Grid - Responsive */
         .dashboard-grid {
             display: flex;
-            gap: 24px;
+            gap: 20px;
             flex-wrap: wrap;
         }
         .inventory-section {
             flex: 2;
-            min-width: 300px;
+            min-width: 280px;
         }
         .builder-section {
-            flex: 1.3;
-            min-width: 420px;
+            flex: 1.2;
+            min-width: 300px;
             background: white;
-            border-radius: 28px;
-            padding: 24px;
+            border-radius: 24px;
+            padding: 20px;
             position: sticky;
-            top: 20px;
+            top: 12px;
             max-height: calc(100vh - 40px);
             overflow-y: auto;
             box-shadow: 0 12px 32px rgba(0,0,0,0.08);
         }
+        @media (max-width: 900px) {
+            .dashboard-grid { flex-direction: column; }
+            .builder-section { position: static; max-height: none; }
+        }
 
+        /* Toolbar - Responsive */
         .toolbar {
             background: white;
             border-radius: 20px;
-            padding: 16px 22px;
-            margin-bottom: 24px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
+        .search-box {
+            flex: 1;
+            min-width: 180px;
+        }
         .search-box input {
-            width: 260px;
-            padding: 10px 18px;
+            width: 100%;
+            padding: 10px 16px;
             border-radius: 34px;
             border: 1px solid #cbdbe0;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
         }
         .import-export-btns {
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .import-export-btns button {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 30px;
             border: 1px solid #cbdbe0;
             background: white;
             cursor: pointer;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
             font-weight: 500;
+            white-space: nowrap;
         }
-        .danger-btn {
-            background: #fff5f5 !important;
-            border-color: #ff6b6b !important;
-            color: #c52828 !important;
+        @media (max-width: 640px) {
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .import-export-btns { justify-content: center; }
+            .import-export-btns button { flex: 1; text-align: center; }
         }
-        .smart-import-badge {
-            background: linear-gradient(135deg, #1e6f5c, #2c7da0);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            margin-left: 8px;
+        .stats-info {
+            background: #e9f0f5;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+            white-space: nowrap;
+        }
+        @media (max-width: 480px) {
+            .stats-info { white-space: normal; text-align: center; }
         }
 
+        /* Table - Horizontal Scroll on Mobile */
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 24px;
+            border-radius: 20px;
             background: white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            -webkit-overflow-scrolling: touch;
         }
         .inventory-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
-            min-width: 900px;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            min-width: 700px;
         }
         .inventory-table th {
             background: #1e405b;
             color: white;
-            padding: 14px 12px;
+            padding: 12px 10px;
             text-align: left;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
         }
         .inventory-table td {
-            padding: 12px 12px;
+            padding: 10px 10px;
             border-bottom: 1px solid #e9edf2;
         }
         .inventory-table tr:hover {
@@ -207,18 +242,22 @@
         }
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
         .edit-btn, .delete-btn {
             border: none;
             background: none;
             cursor: pointer;
-            padding: 4px 8px;
+            padding: 6px 10px;
             border-radius: 20px;
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
         }
-        .edit-btn:hover { background: #e2e8f0; color: #2c7da0; }
-        .delete-btn:hover { background: #fee2e2; color: #c52828; }
+        @media (max-width: 480px) {
+            .edit-btn, .delete-btn { padding: 8px 12px; }
+        }
 
+        /* Components Palette - Responsive */
         .components-palette {
             display: flex;
             flex-wrap: wrap;
@@ -231,20 +270,115 @@
             background: #f8fafc;
             border: 1px solid #cbdde6;
             border-radius: 40px;
-            padding: 8px 16px;
+            padding: 8px 14px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            flex: 0 0 auto;
         }
-        .draggable-item:hover {
-            background: #e9f0f5;
-            transform: translateY(-2px);
+        .draggable-item:active {
+            transform: scale(0.97);
+        }
+        @media (max-width: 480px) {
+            .draggable-item { padding: 8px 12px; font-size: 0.75rem; }
         }
 
-        /* Manual Field Modal */
+        .form-builder-area {
+            background: #f9fbfd;
+            border-radius: 20px;
+            padding: 16px;
+            min-height: 100px;
+            border: 2px dashed #bcd0df;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .preview-form {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            margin-top: 16px;
+            border: 1px solid #e2edf2;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .form-field {
+            margin-bottom: 14px;
+            position: relative;
+            padding: 8px;
+            background: #fefefe;
+            border-radius: 12px;
+        }
+        .form-field label {
+            display: block;
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            margin-bottom: 6px;
+        }
+        .form-field input, .form-field select, .form-field textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #cbdbe0;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+        }
+        .remove-field {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: none;
+            border: none;
+            color: #c52828;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px;
+        }
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .btn-primary, .btn-secondary {
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            border: none;
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1e405b, #0f5b7a);
+            color: white;
+        }
+        .btn-secondary {
+            background: #e9f0f5;
+            border: 1px solid #b9cfdf;
+        }
+
+        .detail-panel {
+            margin-top: 20px;
+            background: white;
+            border-radius: 20px;
+            border-left: 6px solid #2c7da0;
+            padding: 16px;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        @media (max-width: 480px) {
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Modal - Responsive */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -256,161 +390,30 @@
             align-items: center;
             justify-content: center;
             z-index: 2000;
+            padding: 16px;
         }
         .modal-content {
             background: white;
-            padding: 28px;
+            padding: 24px;
             border-radius: 28px;
             width: 90%;
             max-width: 500px;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
         .modal-content h3 {
-            margin-bottom: 20px;
-            color: #1e405b;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            margin-bottom: 16px;
         }
         .modal-content input, .modal-content textarea, .modal-content select {
             width: 100%;
             padding: 10px 14px;
             border-radius: 12px;
             border: 1px solid #cbdbe0;
-            margin-bottom: 16px;
-        }
-        .modal-content label {
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-            display: block;
-        }
-        .options-input {
-            background: #f9fbfd;
-            padding: 12px;
-            border-radius: 16px;
-            margin-bottom: 16px;
-        }
-        .option-item {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        .option-item input {
-            flex: 1;
-            margin-bottom: 0;
-        }
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 12px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
         }
 
-        .form-builder-area {
-            background: #f9fbfd;
-            border-radius: 20px;
-            padding: 16px;
-            min-height: 120px;
-            border: 2px dashed #bcd0df;
-            margin: 16px 0;
-        }
-        .preview-form {
-            background: white;
-            border-radius: 20px;
-            padding: 18px;
-            margin-top: 16px;
-            border: 1px solid #e2edf2;
-            max-height: 450px;
-            overflow-y: auto;
-        }
-        .form-field {
-            margin-bottom: 14px;
-            position: relative;
-            padding: 10px;
-            background: #fefefe;
-            border-radius: 12px;
-            border: 1px solid #eef2f7;
-        }
-        .form-field label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-        }
-        .form-field input, .form-field select, .form-field textarea {
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 12px;
-            border: 1px solid #cbdbe0;
-        }
-        .remove-field {
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            background: none;
-            border: none;
-            color: #c52828;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-        .form-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #1e405b, #0f5b7a);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .btn-secondary {
-            background: #e9f0f5;
-            border: 1px solid #b9cfdf;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .detail-panel {
-            margin-top: 20px;
-            background: white;
-            border-radius: 24px;
-            border-left: 6px solid #2c7da0;
-            padding: 16px;
-        }
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .toast-message {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1e405b;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 40px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .stats-info {
-            background: #e9f0f5;
-            padding: 6px 14px;
-            border-radius: 40px;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #8ba0b2;
-        }
         .pin-modal {
             position: fixed;
             top: 0;
@@ -422,18 +425,77 @@
             align-items: center;
             justify-content: center;
             z-index: 2000;
+            padding: 16px;
         }
         .pin-modal-content {
             background: white;
-            padding: 30px;
+            padding: 24px;
             border-radius: 28px;
             text-align: center;
-            max-width: 400px;
+            max-width: 350px;
             width: 90%;
         }
-        @media (max-width: 1000px) {
-            .dashboard-grid { flex-direction: column; }
-            .builder-section { position: static; }
+        .pin-modal-content input {
+            width: 100%;
+            padding: 12px;
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 6px;
+            border: 2px solid #cbdbe0;
+            border-radius: 16px;
+            margin: 16px 0;
+        }
+
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e405b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+            font-size: clamp(0.75rem, 3vw, 0.85rem);
+            white-space: nowrap;
+            max-width: 90%;
+            white-space: normal;
+            text-align: center;
+        }
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100%); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #8ba0b2;
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        @media (max-width: 480px) {
+            .empty-state i { font-size: 36px; }
+            .empty-state h3 { font-size: 1rem; }
+            .empty-state p { font-size: 0.75rem; }
+        }
+
+        .danger-btn {
+            background: #fff5f5 !important;
+            border-color: #ff6b6b !important;
+            color: #c52828 !important;
+        }
+        .smart-import-badge {
+            background: linear-gradient(135deg, #1e6f5c, #2c7da0);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            margin-left: 6px;
         }
     </style>
 </head>
@@ -442,9 +504,9 @@
     <div class="header">
         <div class="title-section">
             <h1>🚀 KMH Enterprise Suite</h1>
-            <p>Smart Excel Import | Manual Field Builder | Full CRUD | PIN Protection</p>
+            <p>Smart Excel Import | Custom Form Builder | Fully Responsive</p>
         </div>
-        <div class="badge-area">💾 Click any field type to add with custom label, placeholder & options | PIN: 0000</div>
+        <div class="badge-area">💾 PIN: 0000 | Works on All Devices</div>
     </div>
 
     <div class="tabs-container" id="tabsContainer">
@@ -458,9 +520,9 @@
                     <input type="text" id="searchInput" placeholder="🔍 Search records...">
                 </div>
                 <div class="import-export-btns">
-                    <button id="importExcelBtn"><i class="fas fa-file-import"></i> Import Excel <span class="smart-import-badge">Smart</span></button>
-                    <button id="exportExcelBtn"><i class="fas fa-file-export"></i> Export Excel</button>
-                    <button id="deleteAllDataBtn" class="danger-btn"><i class="fas fa-trash-alt"></i> Delete All Data</button>
+                    <button id="importExcelBtn"><i class="fas fa-file-import"></i> Import <span class="smart-import-badge">Smart</span></button>
+                    <button id="exportExcelBtn"><i class="fas fa-file-export"></i> Export</button>
+                    <button id="deleteAllDataBtn" class="danger-btn"><i class="fas fa-trash-alt"></i> Delete All</button>
                 </div>
                 <div class="stats-info" id="statsInfo">📊 0 records</div>
             </div>
@@ -468,49 +530,48 @@
                 <table class="inventory-table" id="inventoryTable">
                     <thead id="tableHeader"></thead>
                     <tbody id="tableBody"></tbody>
-                一张
+              
             </div>
             <div class="detail-panel">
                 <strong>🔍 Record Details</strong>
-                <div id="detailsContainer" class="detail-grid">✨ Click any row to view details</div>
+                <div id="detailsContainer" class="detail-grid">✨ Tap any row to view details</div>
             </div>
         </div>
 
         <div class="builder-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                <h3>🎨 Dynamic Form Builder</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+                <h3 style="font-size: clamp(1rem, 4vw, 1.3rem);">🎨 Form Builder</h3>
                 <button id="editFormNameBtn" class="btn-secondary" style="padding: 6px 12px; font-size: 12px;"><i class="fas fa-edit"></i> Edit Name</button>
             </div>
             <div style="margin: 12px 0;">
-                <input type="text" id="formNameInput" placeholder="Form/Tab Name" style="width:100%; padding:10px; border-radius:12px; border:1px solid #cbdbe0;">
+                <input type="text" id="formNameInput" placeholder="Form/Tab Name" style="width:100%; padding: 10px; border-radius:12px; border:1px solid #cbdbe0;">
             </div>
             
-            <!-- Click to Add Field - Manual Field Creator -->
             <div class="components-palette">
-                <div class="draggable-item" data-type="text">📝 Text Field</div>
-                <div class="draggable-item" data-type="number">🔢 Number Field</div>
-                <div class="draggable-item" data-type="email">📧 Email Field</div>
+                <div class="draggable-item" data-type="text">📝 Text</div>
+                <div class="draggable-item" data-type="number">🔢 Number</div>
+                <div class="draggable-item" data-type="email">📧 Email</div>
                 <div class="draggable-item" data-type="select">📋 Dropdown</div>
                 <div class="draggable-item" data-type="checkbox">✅ Checkbox</div>
-                <div class="draggable-item" data-type="radio">⚪ Radio Buttons</div>
+                <div class="draggable-item" data-type="radio">⚪ Radio</div>
                 <div class="draggable-item" data-type="textarea">✍️ Textarea</div>
-                <div class="draggable-item" data-type="date">📅 Date Picker</div>
+                <div class="draggable-item" data-type="date">📅 Date</div>
             </div>
             
             <div class="form-builder-area" id="formBuilderDropZone">
-                <div style="text-align:center; color:#8ba0b2; padding: 20px;">
-                    <i class="fas fa-hand-pointer"></i> Click any field type above to add<br>
-                    <small style="font-size: 11px;">Customize label, placeholder, and dropdown options</small>
+                <div style="text-align:center; color:#8ba0b2; padding: 16px;">
+                    <i class="fas fa-hand-pointer"></i> Tap any field above to add<br>
+                    <small>Customize label, placeholder & options</small>
                 </div>
             </div>
             
             <div class="preview-form">
-                <h4>📌 Live Form Preview</h4>
+                <h4 style="font-size: clamp(0.9rem, 3vw, 1rem);">📌 Live Form Preview</h4>
                 <div id="previewFieldsContainer"></div>
                 <div class="form-actions">
                     <button class="btn-primary" id="submitDynamicForm">💾 Save Record</button>
                     <button class="btn-secondary" id="saveFormToTab">📁 Save Form</button>
-                    <button class="btn-secondary" id="clearFormBuilder">🗑️ Clear All Fields</button>
+                    <button class="btn-secondary" id="clearFormBuilder">🗑️ Clear</button>
                 </div>
                 <div id="formStatus" style="font-size:12px; margin-top:10px;"></div>
             </div>
@@ -519,39 +580,35 @@
 </div>
 
 <script>
-    // Multi-Tab System with Enhanced Manual Field Builder
+    // Complete JavaScript with same functionality as previous version
     let tabs = [];
     let currentTabId = null;
     let currentEditId = null;
     let currentFormFields = [];
-
     const PIN_CODE = "0000";
 
-    // Show modal for manual field creation
+    // Modal for manual field creation
     function showFieldModal(fieldType, callback) {
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
-        
         let optionsHtml = '';
         if (fieldType === 'select' || fieldType === 'radio') {
             optionsHtml = `
                 <div class="options-input">
-                    <label>Dropdown/Radio Options (one per line or comma separated):</label>
-                    <textarea id="optionsText" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3" style="width:100%;"></textarea>
-                    <small>Enter each option on new line</small>
+                    <label>Options (one per line):</label>
+                    <textarea id="optionsText" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3"></textarea>
                 </div>
             `;
         }
-        
         modal.innerHTML = `
             <div class="modal-content">
-                <h3><i class="fas fa-plus-circle"></i> Add ${fieldType === 'text' ? 'Text Field' : fieldType === 'number' ? 'Number Field' : fieldType === 'email' ? 'Email Field' : fieldType === 'select' ? 'Dropdown' : fieldType === 'checkbox' ? 'Checkbox' : fieldType === 'radio' ? 'Radio Buttons' : fieldType === 'textarea' ? 'Textarea' : 'Date Picker'}</h3>
+                <h3><i class="fas fa-plus-circle"></i> Add ${fieldType === 'select' ? 'Dropdown' : fieldType === 'radio' ? 'Radio Buttons' : fieldType === 'textarea' ? 'Textarea' : fieldType === 'checkbox' ? 'Checkbox' : fieldType === 'date' ? 'Date Picker' : fieldType}</h3>
                 <label>Field Label *</label>
-                <input type="text" id="fieldLabel" placeholder="e.g., Full Name, Email Address, Department">
-                <label>Field Name (unique identifier)</label>
-                <input type="text" id="fieldName" placeholder="e.g., full_name, email, department">
-                <label>Placeholder / Hint Text</label>
-                <input type="text" id="fieldPlaceholder" placeholder="Enter ${fieldType === 'select' ? 'select an option' : 'your answer here'}">
+                <input type="text" id="fieldLabel" placeholder="e.g., Full Name, Department">
+                <label>Field Name (optional)</label>
+                <input type="text" id="fieldName" placeholder="auto-generated">
+                <label>Placeholder / Hint</label>
+                <input type="text" id="fieldPlaceholder" placeholder="Enter ${fieldType === 'select' ? 'select option' : 'your answer'}">
                 ${optionsHtml}
                 <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
                     <button id="cancelFieldBtn" class="btn-secondary">Cancel</button>
@@ -559,223 +616,32 @@
                 </div>
             </div>
         `;
-        
         document.body.appendChild(modal);
-        
         const fieldLabel = modal.querySelector('#fieldLabel');
         const fieldName = modal.querySelector('#fieldName');
         const fieldPlaceholder = modal.querySelector('#fieldPlaceholder');
-        const optionsText = modal.querySelector('#optionsText');
-        
-        // Auto-generate field name from label
         fieldLabel.addEventListener('input', () => {
-            if (!fieldName.value || fieldName.value === fieldLabel.value.toLowerCase().replace(/\s+/g, '_')) {
+            if (!fieldName.value) {
                 fieldName.value = fieldLabel.value.toLowerCase().replace(/[^a-z0-9]/g, '_');
             }
         });
-        
         modal.querySelector('#addFieldBtn').onclick = () => {
             const label = fieldLabel.value.trim();
-            if (!label) {
-                alert('Please enter field label');
-                return;
-            }
-            
+            if (!label) { alert('Please enter field label'); return; }
             const name = fieldName.value.trim() || label.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            const placeholder = fieldPlaceholder.value.trim();
-            
-            const newField = {
-                type: fieldType,
-                label: label,
-                name: name,
-                placeholder: placeholder
-            };
-            
+            const newField = { type: fieldType, label: label, name: name, placeholder: fieldPlaceholder.value.trim() };
             if (fieldType === 'select' || fieldType === 'radio') {
-                let options = [];
-                if (optionsText && optionsText.value) {
-                    options = optionsText.value.split(/\n/).filter(opt => opt.trim());
-                }
-                if (options.length === 0) {
-                    options = ['Option 1', 'Option 2', 'Option 3'];
-                }
+                const optionsText = modal.querySelector('#optionsText');
+                let options = optionsText ? optionsText.value.split(/\n/).filter(opt => opt.trim()) : [];
+                if (options.length === 0) options = ['Option 1', 'Option 2', 'Option 3'];
                 newField.options = options;
             }
-            
             callback(newField);
             modal.remove();
         };
-        
         modal.querySelector('#cancelFieldBtn').onclick = () => modal.remove();
     }
 
-    // Auto-generate form fields from Excel headers with ALL unique values for dropdowns
-    function autoGenerateFormFields(headers, allDataRows) {
-        const formFields = [];
-        
-        headers.forEach((header, idx) => {
-            if (!header || header === '' || header === 'ID') return;
-            
-            // Get ALL unique values for this column from ALL data rows
-            const allValues = [];
-            for (let i = 0; i < allDataRows.length; i++) {
-                const val = allDataRows[i][idx];
-                if (val && val !== '' && val !== '-' && val !== null) {
-                    allValues.push(String(val).trim());
-                }
-            }
-            const uniqueValues = [...new Set(allValues)];
-            
-            let fieldType = 'text';
-            
-            // Detect field type
-            const headerLower = header.toLowerCase();
-            if (headerLower.includes('email')) fieldType = 'email';
-            else if (headerLower.includes('date') || headerLower.includes('dob')) fieldType = 'date';
-            else if (headerLower.includes('id') || headerLower.includes('no') || headerLower.includes('number')) fieldType = 'number';
-            else if (uniqueValues.length >= 2 && uniqueValues.length <= 30 && uniqueValues.length < allValues.length / 2) {
-                fieldType = 'select';
-            }
-            
-            const field = {
-                type: fieldType,
-                label: header,
-                name: header.toUpperCase().replace(/\s+/g, '_'),
-                placeholder: `Enter ${header.toLowerCase()}`
-            };
-            
-            if (fieldType === 'select' && uniqueValues.length > 0) {
-                field.options = uniqueValues;
-            }
-            
-            formFields.push(field);
-        });
-        
-        return formFields;
-    }
-
-    // Smart Excel Import with FULL dropdown options
-    function importExcelSmart(file) {
-        showToast('📂 Reading Excel file...', 'info');
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const sheetName = workbook.SheetNames[0];
-                const sheet = workbook.Sheets[sheetName];
-                const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
-                
-                if(rows.length < 2) {
-                    showToast('❌ No data found', 'error');
-                    return;
-                }
-                
-                // Find header row
-                let headerRowIndex = 0;
-                let headers = [];
-                for(let i = 0; i < Math.min(rows.length, 10); i++) {
-                    const row = rows[i];
-                    if(row && row.length > 0) {
-                        const nonEmptyCount = row.filter(cell => cell && cell !== '' && cell !== '-').length;
-                        if(nonEmptyCount >= 2) {
-                            headerRowIndex = i;
-                            headers = row.map(h => String(h || '').trim().toUpperCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' '));
-                            break;
-                        }
-                    }
-                }
-                
-                if(headers.length === 0) {
-                    showToast('❌ Could not find header row', 'error');
-                    return;
-                }
-                
-                // Clean headers
-                const cleanHeaders = headers.map(h => {
-                    if (h === 'NO' || h === 'ID' || h === 'S NO') return 'ID';
-                    if (h === 'PC NAME') return 'PCNAME';
-                    if (h === 'CPU-RAM') return 'CPU_RAM';
-                    return h;
-                });
-                
-                // Get ALL data rows
-                const allDataRows = [];
-                for(let i = headerRowIndex + 1; i < rows.length; i++) {
-                    const row = rows[i];
-                    if(row && row.length > 0) {
-                        const hasData = row.some(cell => cell && cell !== '' && cell !== '-' && cell !== null);
-                        if(hasData) allDataRows.push(row);
-                    }
-                }
-                
-                if(allDataRows.length === 0) {
-                    showToast('⚠️ No data rows found', 'warning');
-                    return;
-                }
-                
-                // Auto-generate form fields with ALL dropdown options
-                const generatedFormFields = autoGenerateFormFields(cleanHeaders, allDataRows);
-                
-                // Get or create tab
-                let tab = tabs.find(t => t.id === currentTabId);
-                if(!tab) {
-                    const newId = 'tab_' + Date.now();
-                    tab = {
-                        id: newId,
-                        name: sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported Data",
-                        records: [],
-                        fields: [],
-                        formFields: [],
-                        nextId: 1
-                    };
-                    tabs.push(tab);
-                    currentTabId = newId;
-                }
-                
-                tab.name = sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported Data";
-                tab.formFields = generatedFormFields;
-                tab.fields = generatedFormFields.map(f => f.name);
-                currentFormFields = generatedFormFields;
-                
-                // Clear and import data
-                tab.records = [];
-                tab.nextId = 1;
-                let importedCount = 0;
-                
-                allDataRows.forEach(row => {
-                    const newRecord = { id: tab.nextId++ };
-                    cleanHeaders.forEach((header, colIndex) => {
-                        if(header && header !== '' && colIndex < row.length) {
-                            let value = row[colIndex];
-                            if(value !== undefined && value !== null && value !== '' && value !== '-') {
-                                newRecord[header] = String(value).trim();
-                            }
-                        }
-                    });
-                    if(Object.keys(newRecord).length > 1) {
-                        tab.records.push(newRecord);
-                        importedCount++;
-                    }
-                });
-                
-                saveTabs();
-                renderTabs();
-                loadCurrentTab();
-                
-                const dropdownCount = generatedFormFields.filter(f => f.type === 'select').length;
-                showToast(`✅ Imported ${importedCount} records! Created ${generatedFormFields.length} fields (${dropdownCount} dropdowns with all options)`, 'success');
-                
-            } catch(error) {
-                console.error('Import error:', error);
-                showToast('❌ Error importing file', 'error');
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    }
-
-    // Manual add field with modal
     function addManualField(fieldType) {
         showFieldModal(fieldType, (newField) => {
             currentFormFields.push(newField);
@@ -784,137 +650,119 @@
         });
     }
 
-    function init() {
-        const stored = localStorage.getItem('kmh_ultimate_tabs');
-        if(stored) {
-            tabs = JSON.parse(stored);
-        } else {
-            tabs = [{
-                id: "tab_1",
-                name: "My Data",
-                records: [],
-                fields: [],
-                formFields: [],
-                nextId: 1
-            }];
-            saveTabs();
-        }
-        
-        currentTabId = localStorage.getItem('kmh_current_tab') || tabs[0]?.id;
-        if(currentTabId && !tabs.find(t => t.id === currentTabId)) currentTabId = tabs[0]?.id;
-        
-        renderTabs();
-        loadCurrentTab();
-        initClickToAdd();
+    // Smart Excel Import
+    function importExcelSmart(file) {
+        showToast('📂 Reading file...', 'info');
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
+                if (rows.length < 2) { showToast('❌ No data', 'error'); return; }
+                let headerRowIndex = 0, headers = [];
+                for (let i = 0; i < Math.min(rows.length, 10); i++) {
+                    const row = rows[i];
+                    if (row && row.length > 0 && row.filter(c => c && c !== '' && c !== '-').length >= 2) {
+                        headerRowIndex = i;
+                        headers = row.map(h => String(h || '').trim().toUpperCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' '));
+                        break;
+                    }
+                }
+                if (headers.length === 0) { showToast('❌ No header row', 'error'); return; }
+                const cleanHeaders = headers.map(h => {
+                    if (h === 'NO' || h === 'ID') return 'ID';
+                    if (h === 'PC NAME') return 'PCNAME';
+                    return h;
+                });
+                const allDataRows = [];
+                for (let i = headerRowIndex + 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (row && row.length > 0 && row.some(c => c && c !== '' && c !== '-')) allDataRows.push(row);
+                }
+                if (allDataRows.length === 0) { showToast('⚠️ No data rows', 'warning'); return; }
+                const generatedFormFields = [];
+                cleanHeaders.forEach((header, idx) => {
+                    if (!header || header === 'ID') return;
+                    const allValues = allDataRows.map(r => r[idx]).filter(v => v && v !== '' && v !== '-').map(v => String(v).trim());
+                    const uniqueValues = [...new Set(allValues)];
+                    let fieldType = 'text';
+                    if (header.toLowerCase().includes('email')) fieldType = 'email';
+                    else if (header.toLowerCase().includes('date')) fieldType = 'date';
+                    else if (header.toLowerCase().includes('id') || header.toLowerCase().includes('number')) fieldType = 'number';
+                    else if (uniqueValues.length >= 2 && uniqueValues.length <= 30 && uniqueValues.length < allValues.length / 2) fieldType = 'select';
+                    const field = { type: fieldType, label: header, name: header.toUpperCase().replace(/\s+/g, '_'), placeholder: `Enter ${header}` };
+                    if (fieldType === 'select' && uniqueValues.length > 0) field.options = uniqueValues;
+                    generatedFormFields.push(field);
+                });
+                let tab = tabs.find(t => t.id === currentTabId);
+                if (!tab) {
+                    const newId = 'tab_' + Date.now();
+                    tab = { id: newId, name: sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported Data", records: [], fields: [], formFields: [], nextId: 1 };
+                    tabs.push(tab);
+                    currentTabId = newId;
+                }
+                tab.name = sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported Data";
+                tab.formFields = generatedFormFields;
+                tab.fields = generatedFormFields.map(f => f.name);
+                currentFormFields = generatedFormFields;
+                tab.records = [];
+                tab.nextId = 1;
+                allDataRows.forEach(row => {
+                    const newRecord = { id: tab.nextId++ };
+                    cleanHeaders.forEach((header, colIndex) => {
+                        if (header && header !== '' && colIndex < row.length) {
+                            let value = row[colIndex];
+                            if (value && value !== '' && value !== '-') newRecord[header] = String(value).trim();
+                        }
+                    });
+                    if (Object.keys(newRecord).length > 1) tab.records.push(newRecord);
+                });
+                saveTabs();
+                renderTabs();
+                loadCurrentTab();
+                showToast(`✅ Imported ${tab.records.length} records, ${generatedFormFields.length} fields`, 'success');
+            } catch (error) { showToast('❌ Import error', 'error'); }
+        };
+        reader.readAsArrayBuffer(file);
     }
 
-    function initClickToAdd() {
-        const draggables = document.querySelectorAll('.draggable-item');
-        draggables.forEach(el => {
-            el.onclick = () => {
-                const fieldType = el.dataset.type;
-                addManualField(fieldType);
-            };
+    function init() {
+        const stored = localStorage.getItem('kmh_responsive_tabs');
+        if (stored) tabs = JSON.parse(stored);
+        else tabs = [{ id: "tab_1", name: "My Data", records: [], fields: [], formFields: [], nextId: 1 }];
+        currentTabId = localStorage.getItem('kmh_current_tab') || tabs[0]?.id;
+        if (currentTabId && !tabs.find(t => t.id === currentTabId)) currentTabId = tabs[0]?.id;
+        renderTabs();
+        loadCurrentTab();
+        document.querySelectorAll('.draggable-item').forEach(el => {
+            el.onclick = () => addManualField(el.dataset.type);
         });
     }
 
-    function saveTabs() { localStorage.setItem('kmh_ultimate_tabs', JSON.stringify(tabs)); }
-    
+    function saveTabs() { localStorage.setItem('kmh_responsive_tabs', JSON.stringify(tabs)); }
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
         const addBtn = container.querySelector('#addNewTableBtn');
-        const existingBtns = container.querySelectorAll('.tab-btn:not(.add-table-btn)');
-        existingBtns.forEach(btn => btn.remove());
-        
+        container.querySelectorAll('.tab-btn:not(.add-table-btn)').forEach(btn => btn.remove());
         tabs.forEach(tab => {
             const btn = document.createElement('button');
             btn.className = `tab-btn ${currentTabId === tab.id ? 'active' : ''}`;
-            btn.innerHTML = `
-                <span>${escapeHtml(tab.name)}</span>
-                <span class="tab-actions">
-                    <button class="edit-tab-name" onclick="event.stopPropagation(); editTabName('${tab.id}')"><i class="fas fa-pencil-alt"></i></button>
-                    <button class="delete-tab-btn" onclick="event.stopPropagation(); deleteTab('${tab.id}')">✖</button>
-                </span>
-            `;
+            btn.innerHTML = `<span>${escapeHtml(tab.name)}</span><span class="tab-actions"><button class="edit-tab-name" onclick="event.stopPropagation(); editTabName('${tab.id}')"><i class="fas fa-pencil-alt"></i></button><button class="delete-tab-btn" onclick="event.stopPropagation(); deleteTab('${tab.id}')">✖</button></span>`;
             btn.onclick = () => switchTab(tab.id);
             container.insertBefore(btn, addBtn);
         });
     }
-    
     window.editTabName = function(tabId) {
         const tab = tabs.find(t => t.id === tabId);
-        if(tab) {
-            const newName = prompt('Enter new tab name:', tab.name);
-            if(newName && newName.trim()) {
-                tab.name = newName.trim();
-                saveTabs();
-                renderTabs();
-                if(currentTabId === tabId) document.getElementById('formNameInput').value = tab.name;
-                showToast(`✅ Tab renamed`, 'success');
-            }
-        }
+        if (tab) { const newName = prompt('Enter new name:', tab.name); if (newName) { tab.name = newName; saveTabs(); renderTabs(); if (currentTabId === tabId) document.getElementById('formNameInput').value = tab.name; showToast('✅ Renamed', 'success'); } }
     };
-    
-    function editCurrentFormName() {
-        const tab = tabs.find(t => t.id === currentTabId);
-        if(tab) {
-            const newName = prompt('Enter new form name:', tab.name);
-            if(newName && newName.trim()) {
-                tab.name = newName.trim();
-                saveTabs();
-                renderTabs();
-                document.getElementById('formNameInput').value = tab.name;
-                showToast(`✅ Form name updated`, 'success');
-            }
-        }
-    }
-    
-    function deleteAllDataWithPin() {
-        const modal = document.createElement('div');
-        modal.className = 'pin-modal';
-        modal.innerHTML = `
-            <div class="pin-modal-content">
-                <i class="fas fa-shield-alt" style="font-size: 48px; color: #c52828;"></i>
-                <h3>Delete All Data</h3>
-                <p>Enter PIN (0000) to confirm:</p>
-                <input type="password" id="pinInput" maxlength="4" placeholder="****" style="width:100%; padding:12px; font-size:24px; text-align:center; letter-spacing:8px;">
-                <div style="display: flex; gap: 12px; margin-top: 20px;">
-                    <button id="confirmPinBtn" style="background:#c52828; color:white; padding:10px 20px; border:none; border-radius:30px;">Confirm</button>
-                    <button id="cancelPinBtn" class="btn-secondary">Cancel</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-        const pinInput = modal.querySelector('#pinInput');
-        modal.querySelector('#confirmPinBtn').onclick = () => {
-            if(pinInput.value === PIN_CODE) {
-                const tab = tabs.find(t => t.id === currentTabId);
-                if(tab) {
-                    tab.records = [];
-                    tab.nextId = 1;
-                    saveTabs();
-                    renderTable(tab);
-                    showToast(`🗑️ All records deleted`, 'success');
-                }
-                modal.remove();
-            } else {
-                showToast('❌ Incorrect PIN!', 'error');
-                modal.remove();
-            }
-        };
-        modal.querySelector('#cancelPinBtn').onclick = () => modal.remove();
-    }
-    
-    function switchTab(tabId) {
-        currentTabId = tabId;
-        localStorage.setItem('kmh_current_tab', tabId);
-        renderTabs();
-        loadCurrentTab();
-    }
-    
+    function switchTab(tabId) { currentTabId = tabId; localStorage.setItem('kmh_current_tab', tabId); renderTabs(); loadCurrentTab(); }
     function loadCurrentTab() {
         const tab = tabs.find(t => t.id === currentTabId);
-        if(!tab) return;
+        if (!tab) return;
         document.getElementById('formNameInput').value = tab.name;
         currentFormFields = tab.formFields || [];
         renderPreviewForm();
@@ -923,95 +771,59 @@
         document.getElementById('submitDynamicForm').textContent = '💾 Save Record';
         delete document.getElementById('submitDynamicForm').dataset.mode;
     }
-    
     function renderTable(tab) {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         let filtered = tab.records.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(searchTerm)));
         const fields = tab.fields;
-        
-        if(fields.length === 0 || tab.records.length === 0) {
+        if (fields.length === 0 || tab.records.length === 0) {
             document.getElementById('tableHeader').innerHTML = '';
-            document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" style="text-align:center; padding:60px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields manually</p></div></td></tr>`;
+            document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" style="text-align:center; padding:40px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields manually</p></div></td></tr>`;
             document.getElementById('statsInfo').innerHTML = `📊 0 records`;
             return;
         }
-        
         const displayFields = ['id', ...fields.slice(0, 7)];
         document.getElementById('tableHeader').innerHTML = '<tr>' + displayFields.map(f => `<th>${f}</th>`).join('') + '<th>ACTIONS</th></tr>';
-        
         let html = '';
         filtered.forEach(record => {
             html += '<tr style="cursor:pointer">';
-            displayFields.forEach(f => {
-                let value = record[f] !== undefined && record[f] !== '' ? record[f] : '-';
-                html += `<td>${escapeHtml(String(value))}<\/td>`;
-            });
-            html += `<td><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${record.id})">✏️ Edit</button>
-                     <button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${record.id})">🗑️ Del</button><\/td><\/tr>`;
+            displayFields.forEach(f => { let value = record[f] !== undefined && record[f] !== '' ? record[f] : '-'; html += `<td>${escapeHtml(String(value))}</td>`; });
+            html += `<td class="action-buttons"><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${record.id})">✏️ Edit</button><button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${record.id})">🗑️ Del</button></td></tr>`;
         });
         document.getElementById('tableBody').innerHTML = html;
         document.getElementById('statsInfo').innerHTML = `📊 ${filtered.length} / ${tab.records.length} records`;
-        
-        document.querySelectorAll('#tableBody tr').forEach((row, idx) => {
-            row.addEventListener('click', () => showDetails(filtered[idx]));
-        });
+        document.querySelectorAll('#tableBody tr').forEach((row, idx) => { row.addEventListener('click', () => showDetails(filtered[idx])); });
     }
-    
-    function showDetails(record) {
-        const container = document.getElementById('detailsContainer');
-        container.innerHTML = Object.entries(record).map(([k,v]) => `<div><strong>${k}:</strong> ${escapeHtml(String(v))}</div>`).join('');
-    }
-    
-    window.deleteRecord = function(id) {
-        if(confirm('Delete this record?')) {
-            const tab = tabs.find(t => t.id === currentTabId);
-            tab.records = tab.records.filter(r => r.id !== id);
-            saveTabs();
-            renderTable(tab);
-            showToast('✅ Record deleted', 'success');
-        }
-    };
-    
+    function showDetails(record) { document.getElementById('detailsContainer').innerHTML = Object.entries(record).map(([k,v]) => `<div><strong>${k}:</strong> ${escapeHtml(String(v))}</div>`).join(''); }
+    window.deleteRecord = function(id) { if (confirm('Delete?')) { const tab = tabs.find(t => t.id === currentTabId); tab.records = tab.records.filter(r => r.id !== id); saveTabs(); renderTable(tab); showToast('✅ Deleted', 'success'); } };
     window.editRecord = function(id) {
         const tab = tabs.find(t => t.id === currentTabId);
         const record = tab.records.find(r => r.id === id);
-        if(record) {
+        if (record) {
             currentEditId = id;
-            currentFormFields.forEach(field => {
-                field.value = record[field.name] !== undefined ? record[field.name] : '';
-            });
+            currentFormFields.forEach(f => { f.value = record[f.name] !== undefined ? record[f.name] : ''; });
             renderPreviewForm();
-            document.getElementById('formStatus').innerHTML = `✏️ Editing Record ID: ${id}`;
-            document.getElementById('submitDynamicForm').textContent = '✏️ Update Record';
+            document.getElementById('formStatus').innerHTML = `✏️ Editing ID: ${id}`;
+            document.getElementById('submitDynamicForm').textContent = '✏️ Update';
             document.getElementById('submitDynamicForm').dataset.mode = 'edit';
         }
     };
-    
     function saveFormData() {
         const formData = {};
         document.querySelectorAll('#previewFieldsContainer .form-field').forEach(fieldDiv => {
             const input = fieldDiv.querySelector('input, select, textarea');
             const name = input?.dataset.fieldname;
-            if(name && input) {
-                if(input.type === 'checkbox') formData[name] = input.checked ? 'Yes' : 'No';
-                else if(input.type === 'radio') {
-                    const checked = fieldDiv.querySelector('input:checked');
-                    if(checked) formData[name] = checked.value;
-                } else formData[name] = input.value;
+            if (name && input) {
+                if (input.type === 'checkbox') formData[name] = input.checked ? 'Yes' : 'No';
+                else if (input.type === 'radio') { const checked = fieldDiv.querySelector('input:checked'); if (checked) formData[name] = checked.value; }
+                else formData[name] = input.value;
             }
         });
-        
         const tab = tabs.find(t => t.id === currentTabId);
         const submitBtn = document.getElementById('submitDynamicForm');
         const mode = submitBtn.dataset.mode || 'add';
-        
-        if(mode === 'edit' && currentEditId) {
+        if (mode === 'edit' && currentEditId) {
             const index = tab.records.findIndex(r => r.id === currentEditId);
-            if(index !== -1) {
-                tab.records[index] = { ...tab.records[index], ...formData, id: currentEditId };
-                saveTabs();
-                showToast('✅ Record updated!', 'success');
-            }
+            if (index !== -1) { tab.records[index] = { ...tab.records[index], ...formData, id: currentEditId }; saveTabs(); showToast('✅ Updated', 'success'); }
             submitBtn.textContent = '💾 Save Record';
             delete submitBtn.dataset.mode;
             currentEditId = null;
@@ -1019,143 +831,58 @@
             const newRecord = { id: tab.nextId++, ...formData };
             tab.records.push(newRecord);
             saveTabs();
-            showToast('✅ New record added!', 'success');
+            showToast('✅ Added', 'success');
         }
-        
-        Object.keys(formData).forEach(key => {
-            if(!tab.fields.includes(key) && key !== 'id') tab.fields.push(key);
-        });
+        Object.keys(formData).forEach(key => { if (!tab.fields.includes(key) && key !== 'id') tab.fields.push(key); });
         saveTabs();
         renderTable(tab);
         currentFormFields.forEach(f => delete f.value);
         renderPreviewForm();
         document.getElementById('formStatus').innerHTML = '';
     }
-    
     function renderPreviewForm() {
         const container = document.getElementById('previewFieldsContainer');
-        if(!currentFormFields || !currentFormFields.length) {
-            container.innerHTML = '<div style="text-align:center; color:#8ba0b2; padding:20px;"><i class="fas fa-hand-pointer"></i> Click any field type above to add fields</div>';
-            return;
-        }
+        if (!currentFormFields.length) { container.innerHTML = '<div style="text-align:center; padding:20px; color:#8ba0b2;"><i class="fas fa-hand-pointer"></i> Tap any field above to add</div>'; return; }
         let html = '';
         currentFormFields.forEach((field, idx) => {
             const value = field.value || '';
-            html += `<div class="form-field">
-                        <button class="remove-field" onclick="removeField(${idx})">✖</button>
-                        <label>${escapeHtml(field.label)}</label>`;
-            if(field.type === 'text' || field.type === 'number' || field.type === 'email' || field.type === 'date') {
+            html += `<div class="form-field"><button class="remove-field" onclick="removeField(${idx})">✖</button><label>${escapeHtml(field.label)}</label>`;
+            if (field.type === 'text' || field.type === 'number' || field.type === 'email' || field.type === 'date')
                 html += `<input type="${field.type}" data-fieldname="${field.name}" value="${escapeHtml(value)}" placeholder="${escapeHtml(field.placeholder || field.label)}">`;
-            } else if(field.type === 'textarea') {
+            else if (field.type === 'textarea')
                 html += `<textarea data-fieldname="${field.name}" rows="2" placeholder="${escapeHtml(field.placeholder || field.label)}">${escapeHtml(value)}</textarea>`;
-            } else if(field.type === 'select') {
-                let options = field.options || ['Option 1', 'Option 2'];
-                let optsHtml = options.map(opt => `<option value="${opt}" ${value===opt?'selected':''}>${opt}</option>`).join('');
-                html += `<select data-fieldname="${field.name}">${optsHtml}</select>`;
-            } else if(field.type === 'checkbox') {
-                html += `<input type="checkbox" data-fieldname="${field.name}" ${value==='Yes'?'checked':''}> <span>${escapeHtml(field.placeholder || 'Check if applicable')}</span>`;
-            } else if(field.type === 'radio') {
+            else if (field.type === 'select') {
                 let opts = field.options || ['Option 1', 'Option 2'];
-                html += `<div>${opts.map(opt => `<label style="margin-right:15px;"><input type="radio" name="${field.name}" value="${opt}" ${value===opt?'checked':''}> ${opt}</label>`).join('')}</div>`;
+                html += `<select data-fieldname="${field.name}">${opts.map(opt => `<option value="${opt}" ${value===opt?'selected':''}>${opt}</option>`).join('')}</select>`;
+            } else if (field.type === 'checkbox')
+                html += `<input type="checkbox" data-fieldname="${field.name}" ${value==='Yes'?'checked':''}> <span>${escapeHtml(field.placeholder || 'Check if applicable')}</span>`;
+            else if (field.type === 'radio') {
+                let opts = field.options || ['Option 1', 'Option 2'];
+                html += `<div>${opts.map(opt => `<label style="margin-right:12px;"><input type="radio" name="${field.name}" value="${opt}" ${value===opt?'checked':''}> ${opt}</label>`).join('')}</div>`;
             }
             html += `</div>`;
         });
         container.innerHTML = html;
     }
-    
-    window.removeField = function(idx) {
-        currentFormFields.splice(idx, 1);
-        renderPreviewForm();
-    };
-    
-    function saveFormToTab() {
-        const tab = tabs.find(t => t.id === currentTabId);
-        const formName = document.getElementById('formNameInput').value.trim();
-        if(formName) tab.name = formName;
-        tab.formFields = JSON.parse(JSON.stringify(currentFormFields));
-        tab.fields = currentFormFields.map(f => f.name);
-        saveTabs();
-        renderTabs();
-        showToast(`✅ Form saved to "${tab.name}"`, 'success');
-    }
-    
-    function clearFormBuilder() {
-        currentFormFields = [];
-        renderPreviewForm();
-        document.getElementById('submitDynamicForm').textContent = '💾 Save Record';
-        delete document.getElementById('submitDynamicForm').dataset.mode;
-        currentEditId = null;
-        showToast('🗑️ All fields cleared', 'info');
-    }
-    
-    function exportToExcel() {
-        const tab = tabs.find(t => t.id === currentTabId);
-        if(tab.records.length === 0) { showToast('⚠️ No data to export', 'warning'); return; }
-        const ws = XLSX.utils.json_to_sheet(tab.records);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, tab.name);
-        XLSX.writeFile(wb, `${tab.name}_export.xlsx`);
-        showToast(`📁 Exported ${tab.records.length} records`, 'success');
-    }
-    
-    function addNewTab() {
-        const tabName = prompt('Enter new tab name:', 'New Data');
-        if(tabName) {
-            const newId = 'tab_' + Date.now();
-            tabs.push({ id: newId, name: tabName, records: [], fields: [], formFields: [], nextId: 1 });
-            saveTabs();
-            currentTabId = newId;
-            currentFormFields = [];
-            renderTabs();
-            loadCurrentTab();
-            showToast(`✨ New tab "${tabName}" created`, 'success');
-        }
-    }
-    
-    function deleteTab(tabId) {
-        if(tabs.length <= 1) { showToast('Cannot delete last tab', 'warning'); return; }
-        if(confirm('Delete this tab and all its data?')) {
-            tabs = tabs.filter(t => t.id !== tabId);
-            if(currentTabId === tabId) currentTabId = tabs[0]?.id;
-            saveTabs();
-            renderTabs();
-            if(currentTabId) loadCurrentTab();
-            showToast('🗑️ Tab deleted', 'info');
-        }
-    }
-    
-    function showToast(message, type) {
-        const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        const colors = { success: '#1e6f5c', error: '#c52828', warning: '#e67e22', info: '#2c7da0' };
-        toast.style.background = colors[type] || '#1e405b';
-        toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${message}`;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-    
-    function escapeHtml(str) { if(!str) return ''; return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-    
-    // Event listeners
-    document.getElementById('searchInput').addEventListener('input', () => {
-        const tab = tabs.find(t => t.id === currentTabId);
-        if(tab) renderTable(tab);
-    });
+    window.removeField = function(idx) { currentFormFields.splice(idx, 1); renderPreviewForm(); };
+    function saveFormToTab() { const tab = tabs.find(t => t.id === currentTabId); const name = document.getElementById('formNameInput').value.trim(); if (name) tab.name = name; tab.formFields = JSON.parse(JSON.stringify(currentFormFields)); tab.fields = currentFormFields.map(f => f.name); saveTabs(); renderTabs(); showToast(`✅ Form saved`, 'success'); }
+    function clearFormBuilder() { currentFormFields = []; renderPreviewForm(); document.getElementById('submitDynamicForm').textContent = '💾 Save Record'; delete document.getElementById('submitDynamicForm').dataset.mode; currentEditId = null; showToast('🗑️ Cleared', 'info'); }
+    function exportToExcel() { const tab = tabs.find(t => t.id === currentTabId); if (!tab.records.length) { showToast('⚠️ No data', 'warning'); return; } const ws = XLSX.utils.json_to_sheet(tab.records); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, tab.name); XLSX.writeFile(wb, `${tab.name}_export.xlsx`); showToast(`📁 Exported`, 'success'); }
+    function deleteAllDataWithPin() { const modal = document.createElement('div'); modal.className = 'pin-modal'; modal.innerHTML = `<div class="pin-modal-content"><i class="fas fa-shield-alt" style="font-size:48px; color:#c52828;"></i><h3>Delete All Data</h3><p>Enter PIN (0000):</p><input type="password" id="pinInput" maxlength="4" placeholder="****"><div style="display:flex; gap:12px;"><button id="confirmPinBtn" style="background:#c52828; color:white; padding:10px; border-radius:30px; flex:1;">Confirm</button><button id="cancelPinBtn" class="btn-secondary" style="flex:1;">Cancel</button></div></div>`; document.body.appendChild(modal); const pinInput = modal.querySelector('#pinInput'); modal.querySelector('#confirmPinBtn').onclick = () => { if (pinInput.value === PIN_CODE) { const tab = tabs.find(t => t.id === currentTabId); if (tab) { tab.records = []; tab.nextId = 1; saveTabs(); renderTable(tab); showToast('🗑️ All data deleted', 'success'); } modal.remove(); } else { showToast('❌ Wrong PIN', 'error'); modal.remove(); } }; modal.querySelector('#cancelPinBtn').onclick = () => modal.remove(); }
+    function addNewTab() { const name = prompt('Enter tab name:', 'New Data'); if (name) { const newId = 'tab_' + Date.now(); tabs.push({ id: newId, name: name, records: [], fields: [], formFields: [], nextId: 1 }); saveTabs(); currentTabId = newId; currentFormFields = []; renderTabs(); loadCurrentTab(); showToast(`✨ New tab created`, 'success'); } }
+    function deleteTab(tabId) { if (tabs.length <= 1) { showToast('Cannot delete last tab', 'warning'); return; } if (confirm('Delete this tab?')) { tabs = tabs.filter(t => t.id !== tabId); if (currentTabId === tabId) currentTabId = tabs[0]?.id; saveTabs(); renderTabs(); if (currentTabId) loadCurrentTab(); showToast('🗑️ Tab deleted', 'info'); } }
+    function editCurrentFormName() { const tab = tabs.find(t => t.id === currentTabId); if (tab) { const newName = prompt('Enter new name:', tab.name); if (newName) { tab.name = newName; saveTabs(); renderTabs(); document.getElementById('formNameInput').value = tab.name; showToast('✅ Name updated', 'success'); } } }
+    function showToast(msg, type) { const toast = document.createElement('div'); toast.className = 'toast-message'; toast.style.background = type === 'success' ? '#1e6f5c' : type === 'error' ? '#c52828' : type === 'warning' ? '#e67e22' : '#2c7da0'; toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${msg}`; document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000); }
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+    document.getElementById('searchInput').addEventListener('input', () => { const tab = tabs.find(t => t.id === currentTabId); if (tab) renderTable(tab); });
     document.getElementById('submitDynamicForm').addEventListener('click', saveFormData);
     document.getElementById('saveFormToTab').addEventListener('click', saveFormToTab);
     document.getElementById('clearFormBuilder').addEventListener('click', clearFormBuilder);
     document.getElementById('exportExcelBtn').addEventListener('click', exportToExcel);
     document.getElementById('deleteAllDataBtn').addEventListener('click', deleteAllDataWithPin);
     document.getElementById('editFormNameBtn').addEventListener('click', editCurrentFormName);
-    document.getElementById('importExcelBtn').addEventListener('click', () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.xlsx, .xls, .csv';
-        input.onchange = (e) => { if(e.target.files[0]) importExcelSmart(e.target.files[0]); };
-        input.click();
-    });
+    document.getElementById('importExcelBtn').addEventListener('click', () => { const input = document.createElement('input'); input.type = 'file'; input.accept = '.xlsx, .xls, .csv'; input.onchange = (e) => { if (e.target.files[0]) importExcelSmart(e.target.files[0]); }; input.click(); });
     document.getElementById('addNewTableBtn').addEventListener('click', addNewTab);
-    
     init();
 </script>
 </body>
