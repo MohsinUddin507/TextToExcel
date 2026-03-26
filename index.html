@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover, maximum-scale=1.0">
-    <title>KMH Pro Suite | Mobile-First Enterprise System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>KMH Pro Suite | Enterprise Management System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
@@ -17,69 +17,78 @@
         :root {
             --primary: #1e405b;
             --primary-dark: #0f5b7a;
-            --secondary: #2c7da0;
+            --primary-light: #2c7da0;
             --success: #1e6f5c;
             --danger: #c52828;
             --warning: #e67e22;
-            --light: #f8fafc;
-            --gray: #e9edf2;
-            --dark: #1a2c3e;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --radius: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
         }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
-            background: linear-gradient(135deg, #f5f7fc 0%, #eef2f7 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', system-ui, sans-serif;
+            background: #f0f2f5;
             padding: 12px;
             min-height: 100vh;
-            color: var(--dark);
+            color: var(--gray-800);
         }
 
-        /* Mobile-First Container */
+        /* Container */
         .portal-container {
-            max-width: 100%;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
-        /* Header - Mobile Optimized */
+        /* Header */
         .header {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 16px 20px;
+            margin-bottom: 16px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--primary-dark);
-            padding-bottom: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
         }
         @media (min-width: 640px) {
             .header { flex-direction: row; justify-content: space-between; align-items: center; }
         }
         .title-section h1 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #0a2e3f, #1e6f5c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
         }
         .title-section p {
             font-size: 0.7rem;
-            color: #4a627a;
-            margin-top: 4px;
+            color: var(--gray-600);
+            margin-top: 2px;
         }
         .badge-area {
-            background: white;
-            padding: 6px 12px;
+            background: var(--gray-100);
+            padding: 6px 14px;
             border-radius: 40px;
             font-size: 0.7rem;
             font-weight: 500;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--gray-200);
         }
 
-        /* Tabs - Touch-Friendly Horizontal Scroll */
+        /* Tabs */
         .tabs-container {
             background: white;
-            border-radius: 20px;
-            padding: 8px 12px;
+            border-radius: var(--radius-xl);
+            padding: 10px 12px;
             margin-bottom: 16px;
             display: flex;
             flex-wrap: nowrap;
@@ -88,41 +97,49 @@
             overflow-y: hidden;
             scrollbar-width: thin;
             -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
         }
         .tab-btn {
-            padding: 10px 18px;
-            background: #f0f4f8;
+            padding: 8px 16px;
+            background: var(--gray-100);
             border: none;
             border-radius: 40px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.8rem;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.2s;
             flex-shrink: 0;
-            scroll-snap-align: start;
+            transition: background 0.15s;
+            border: 1px solid transparent;
         }
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             color: white;
-            box-shadow: 0 2px 8px rgba(15,91,122,0.3);
+            border-color: var(--primary-dark);
+        }
+        .tab-btn:active {
+            background: var(--primary-light);
         }
         .add-table-btn {
             background: var(--primary);
             color: white;
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 40px;
             font-size: 0.8rem;
             flex-shrink: 0;
             margin-left: auto;
+            border: none;
+            cursor: pointer;
+        }
+        .add-table-btn:active {
+            background: var(--primary-dark);
         }
 
-        /* Mobile Collapsible Layout */
+        /* Dashboard Grid */
         .dashboard-grid {
             display: flex;
             flex-direction: column;
@@ -130,33 +147,38 @@
         }
         @media (min-width: 1024px) {
             .dashboard-grid { flex-direction: row; }
-            .inventory-section { flex: 2; }
-            .builder-section { flex: 1.2; position: sticky; top: 12px; max-height: calc(100vh - 40px); overflow-y: auto; }
+            .inventory-section { flex: 2; min-width: 0; }
+            .builder-section { flex: 1.2; min-width: 0; position: sticky; top: 12px; max-height: calc(100vh - 40px); overflow-y: auto; }
         }
 
-        /* Mobile-Optimized Toolbar */
+        /* Toolbar */
         .toolbar {
             background: white;
-            border-radius: 20px;
-            padding: 12px;
+            border-radius: var(--radius-lg);
+            padding: 12px 16px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
         }
         @media (min-width: 640px) {
-            .toolbar { flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; }
+            .toolbar { flex-direction: row; align-items: center; justify-content: space-between; }
         }
         .search-box {
             width: 100%;
         }
         .search-box input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 16px;
             border-radius: 40px;
-            border: 1px solid #cbdbe0;
-            font-size: 0.9rem;
+            border: 1px solid var(--gray-300);
+            font-size: 0.85rem;
             background: white;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
         }
         .import-export-btns {
             display: flex;
@@ -165,28 +187,36 @@
         }
         .import-export-btns button {
             flex: 1;
-            padding: 10px 14px;
-            border-radius: 40px;
-            border: 1px solid #cbdbe0;
-            background: white;
-            font-size: 0.75rem;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        .stats-info {
-            background: #e9f0f5;
             padding: 8px 12px;
             border-radius: 40px;
-            font-size: 0.75rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .import-export-btns button:active {
+            background: var(--gray-100);
+        }
+        .stats-info {
+            background: var(--gray-100);
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
             text-align: center;
+            white-space: nowrap;
+        }
+        @media (max-width: 480px) {
+            .stats-info { white-space: normal; }
         }
 
-        /* Table - Horizontal Scroll with Touch */
+        /* Table */
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
             -webkit-overflow-scrolling: touch;
         }
         .inventory-table {
@@ -205,15 +235,13 @@
         }
         .inventory-table td {
             padding: 10px 10px;
-            border-bottom: 1px solid var(--gray);
+            border-bottom: 1px solid var(--gray-200);
         }
         .inventory-table tr {
             cursor: pointer;
-            transition: background 0.2s;
         }
-        .inventory-table tr:active {
-            background: #f0f8ff;
-            transform: scale(0.99);
+        .inventory-table tr:hover {
+            background: var(--gray-50);
         }
         .action-buttons {
             display: flex;
@@ -224,19 +252,22 @@
             border: none;
             background: none;
             cursor: pointer;
-            padding: 6px 10px;
+            padding: 4px 10px;
             border-radius: 30px;
             font-size: 0.7rem;
-            transition: 0.2s;
+            background: var(--gray-100);
         }
-        .edit-btn:active, .delete-btn:active { transform: scale(0.95); }
+        .edit-btn:active, .delete-btn:active {
+            background: var(--gray-300);
+        }
 
-        /* Form Builder - Mobile Optimized */
+        /* Form Builder */
         .builder-section {
             background: white;
-            border-radius: 24px;
+            border-radius: var(--radius-xl);
             padding: 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
         }
         .builder-header {
             display: flex;
@@ -247,7 +278,7 @@
             margin-bottom: 12px;
         }
         .builder-header h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--primary);
         }
         .form-name-input {
@@ -255,58 +286,55 @@
         }
         .form-name-input input {
             width: 100%;
-            padding: 12px;
+            padding: 10px 14px;
             border-radius: 40px;
-            border: 1px solid #cbdbe0;
-            font-size: 0.9rem;
-            background: #f9fbfd;
+            border: 1px solid var(--gray-300);
+            font-size: 0.85rem;
+            background: white;
         }
 
-        /* Touch-Friendly Components Palette */
+        /* Components Palette */
         .components-palette {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin: 16px 0;
             padding: 12px 0;
-            border-top: 1px solid var(--gray);
+            border-top: 1px solid var(--gray-200);
         }
         .draggable-item {
-            background: linear-gradient(135deg, #fff, #f8fafc);
-            border: 1px solid #cbdde6;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
             border-radius: 40px;
-            padding: 10px 16px;
+            padding: 8px 14px;
             cursor: pointer;
-            font-size: 0.75rem;
-            transition: all 0.2s;
+            font-size: 0.7rem;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             flex: 0 0 auto;
-            -webkit-tap-highlight-color: transparent;
         }
         .draggable-item:active {
-            transform: scale(0.96);
-            background: #e9f0f5;
+            background: var(--gray-300);
         }
 
         .form-builder-area {
-            background: #f9fbfd;
-            border-radius: 20px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
             padding: 16px;
             min-height: 100px;
-            border: 2px dashed #bcd0df;
+            border: 1px dashed var(--gray-300);
             margin: 12px 0;
             text-align: center;
         }
 
-        /* Form Preview - Mobile Optimized */
+        /* Form Preview */
         .preview-form {
             background: white;
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             padding: 16px;
             margin-top: 12px;
-            border: 1px solid var(--gray);
+            border: 1px solid var(--gray-200);
             max-height: 450px;
             overflow-y: auto;
         }
@@ -314,36 +342,36 @@
             margin-bottom: 16px;
             position: relative;
             padding: 8px;
-            background: #fefefe;
-            border-radius: 16px;
-            border: 1px solid #eef2f7;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
         }
         .form-field label {
             display: block;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             margin-bottom: 6px;
             color: var(--primary);
         }
         .form-field input, .form-field select, .form-field textarea {
             width: 100%;
-            padding: 12px;
-            border-radius: 16px;
-            border: 1px solid #cbdbe0;
-            font-size: 0.9rem;
+            padding: 10px 12px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-300);
+            font-size: 0.85rem;
             background: white;
         }
         .remove-field {
             position: absolute;
             right: 8px;
             top: 8px;
-            background: rgba(197,40,40,0.1);
+            background: var(--gray-200);
             border: none;
             color: var(--danger);
             cursor: pointer;
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 20px;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 30px;
         }
         .form-actions {
             display: flex;
@@ -353,32 +381,38 @@
         }
         .btn-primary, .btn-secondary {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            font-weight: 500;
+            font-size: 0.8rem;
             border: none;
             cursor: pointer;
-            transition: 0.2s;
             text-align: center;
         }
-        .btn-primary:active, .btn-secondary:active { transform: scale(0.97); }
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             color: white;
         }
+        .btn-primary:active {
+            background: var(--primary-dark);
+        }
         .btn-secondary {
-            background: #e9f0f5;
-            border: 1px solid #b9cfdf;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+        }
+        .btn-secondary:active {
+            background: var(--gray-200);
         }
 
-        /* Details Panel - Mobile Friendly */
+        /* Details Panel */
         .detail-panel {
             margin-top: 16px;
             background: white;
-            border-radius: 20px;
-            border-left: 4px solid var(--secondary);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary);
             padding: 14px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
         }
         .detail-grid {
             display: grid;
@@ -392,97 +426,92 @@
         @media (min-width: 768px) {
             .detail-grid { grid-template-columns: repeat(3, 1fr); }
         }
+        .detail-grid div {
+            padding: 6px 8px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+        }
 
-        /* Modal - Mobile Optimized */
+        /* Modals */
         .modal-overlay, .pin-modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2000;
             padding: 16px;
-            backdrop-filter: blur(4px);
         }
         .modal-content, .pin-modal-content {
             background: white;
             padding: 24px;
-            border-radius: 32px;
+            border-radius: var(--radius-xl);
             width: 90%;
             max-width: 450px;
             max-height: 85vh;
             overflow-y: auto;
-            animation: modalSlideUp 0.3s ease;
-        }
-        @keyframes modalSlideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
         .modal-content h3, .pin-modal-content h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 16px;
+            color: var(--primary);
         }
         .modal-content input, .modal-content textarea {
             width: 100%;
-            padding: 12px;
-            border-radius: 16px;
-            border: 1px solid #cbdbe0;
+            padding: 10px 12px;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-300);
             margin-bottom: 12px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         .pin-modal-content input {
             width: 100%;
-            padding: 14px;
-            font-size: 1.5rem;
+            padding: 12px;
+            font-size: 1.3rem;
             text-align: center;
-            letter-spacing: 8px;
-            border: 2px solid var(--gray);
-            border-radius: 20px;
+            letter-spacing: 6px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
             margin: 16px 0;
         }
 
-        /* Toast Messages */
+        /* Toast */
         .toast-message {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--dark);
+            background: var(--gray-800);
             color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
+            padding: 10px 20px;
+            border-radius: 40px;
             z-index: 1100;
-            animation: toastUp 0.3s ease;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-align: center;
-            white-space: nowrap;
             max-width: 90%;
             white-space: normal;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        @keyframes toastUp {
-            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
-            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            box-shadow: var(--shadow-md);
         }
 
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: #8ba0b2;
+            color: var(--gray-400);
         }
         .empty-state i {
-            font-size: 48px;
+            font-size: 40px;
             margin-bottom: 12px;
             opacity: 0.5;
         }
         .smart-import-badge {
-            background: linear-gradient(135deg, var(--success), var(--secondary));
+            background: var(--success);
             color: white;
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 20px;
             font-size: 9px;
             margin-left: 4px;
@@ -492,17 +521,22 @@
             border-color: #ffb3b3 !important;
             color: var(--danger) !important;
         }
-
-        /* Loading State */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
+        .edit-tab-name, .delete-tab-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 20px;
+        }
+        .edit-tab-name:hover, .delete-tab-btn:hover {
+            background: rgba(0,0,0,0.05);
         }
         
         @media (max-width: 380px) {
             body { padding: 8px; }
-            .tab-btn, .add-table-btn { padding: 8px 14px; font-size: 0.7rem; }
-            .btn-primary, .btn-secondary { padding: 10px; font-size: 0.8rem; }
+            .tab-btn, .add-table-btn { padding: 6px 12px; font-size: 0.7rem; }
+            .btn-primary, .btn-secondary { padding: 8px; font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -511,9 +545,9 @@
     <div class="header">
         <div class="title-section">
             <h1>📱 KMH Pro Suite</h1>
-            <p>Mobile-First | Smart Import | Custom Forms</p>
+            <p>Smart Import | Custom Forms | Full CRUD</p>
         </div>
-        <div class="badge-area">🔐 PIN: 0000 | Touch Optimized</div>
+        <div class="badge-area">🔐 PIN: 0000 | All Devices</div>
     </div>
 
     <div class="tabs-container" id="tabsContainer">
@@ -529,7 +563,7 @@
                 <div class="import-export-btns">
                     <button id="importExcelBtn"><i class="fas fa-file-import"></i> Import <span class="smart-import-badge">Smart</span></button>
                     <button id="exportExcelBtn"><i class="fas fa-file-export"></i> Export</button>
-                    <button id="deleteAllDataBtn" class="danger-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                    <button id="deleteAllDataBtn" class="danger-btn"><i class="fas fa-trash-alt"></i> Delete All</button>
                 </div>
                 <div class="stats-info" id="statsInfo">📊 0 records</div>
             </div>
@@ -537,7 +571,7 @@
                 <table class="inventory-table" id="inventoryTable">
                     <thead id="tableHeader"></thead>
                     <tbody id="tableBody"></tbody>
-    
+                
             </div>
             <div class="detail-panel">
                 <strong>🔍 Record Details</strong>
@@ -548,7 +582,7 @@
         <div class="builder-section">
             <div class="builder-header">
                 <h3>🎨 Form Builder</h3>
-                <button id="editFormNameBtn" class="btn-secondary" style="padding: 6px 12px; font-size: 11px;"><i class="fas fa-edit"></i> Edit</button>
+                <button id="editFormNameBtn" class="btn-secondary" style="padding: 6px 12px; font-size: 11px;"><i class="fas fa-edit"></i> Edit Name</button>
             </div>
             <div class="form-name-input">
                 <input type="text" id="formNameInput" placeholder="Form/Tab Name">
@@ -573,7 +607,7 @@
             </div>
             
             <div class="preview-form">
-                <h4 style="font-size: 0.9rem;">📌 Live Preview</h4>
+                <h4 style="font-size: 0.85rem;">📌 Live Preview</h4>
                 <div id="previewFieldsContainer"></div>
                 <div class="form-actions">
                     <button class="btn-primary" id="submitDynamicForm">💾 Save</button>
@@ -587,22 +621,21 @@
 </div>
 
 <script>
-    // Mobile-Optimized Full JavaScript
+    // Complete JavaScript - No Animations, Fully Responsive
     let tabs = [], currentTabId = null, currentEditId = null, currentFormFields = [];
     const PIN_CODE = "0000";
 
-    // Modal for manual field creation
     function showFieldModal(fieldType, callback) {
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
         let optionsHtml = '';
         if (fieldType === 'select' || fieldType === 'radio') {
-            optionsHtml = `<div style="margin-bottom:12px;"><label>Options (one per line):</label><textarea id="optionsText" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3" style="width:100%; padding:10px; border-radius:12px; border:1px solid #cbdbe0;"></textarea></div>`;
+            optionsHtml = `<div style="margin-bottom:12px;"><label>Options (one per line):</label><textarea id="optionsText" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3" style="width:100%; padding:10px; border-radius:12px; border:1px solid #d1d5db;"></textarea></div>`;
         }
         modal.innerHTML = `
             <div class="modal-content">
                 <h3><i class="fas fa-plus-circle"></i> Add ${fieldType === 'select' ? 'Dropdown' : fieldType === 'radio' ? 'Radio' : fieldType === 'textarea' ? 'Textarea' : fieldType}</h3>
-                <input type="text" id="fieldLabel" placeholder="Field Label *" style="width:100%;">
+                <input type="text" id="fieldLabel" placeholder="Field Label *">
                 <input type="text" id="fieldName" placeholder="Field Name (optional)">
                 <input type="text" id="fieldPlaceholder" placeholder="Placeholder / Hint">
                 ${optionsHtml}
@@ -633,11 +666,10 @@
         modal.querySelector('#cancelFieldBtn').onclick = () => modal.remove();
     }
 
-    function addManualField(type) { showFieldModal(type, (field) => { currentFormFields.push(field); renderPreviewForm(); showToast(`✅ Added "${field.label}"`, 'success'); }); }
+    function addManualField(type) { showFieldModal(type, (field) => { currentFormFields.push(field); renderPreviewForm(); showToast(`Added "${field.label}"`, 'success'); }); }
 
-    // Smart Excel Import
     function importExcelSmart(file) {
-        showToast('📂 Reading file...', 'info');
+        showToast('Reading file...', 'info');
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
@@ -646,7 +678,7 @@
                 const sheetName = workbook.SheetNames[0];
                 const sheet = workbook.Sheets[sheetName];
                 const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
-                if (rows.length < 2) { showToast('❌ No data', 'error'); return; }
+                if (rows.length < 2) { showToast('No data', 'error'); return; }
                 let headerRow = 0, headers = [];
                 for (let i = 0; i < Math.min(rows.length, 8); i++) {
                     const row = rows[i];
@@ -656,7 +688,7 @@
                         break;
                     }
                 }
-                if (!headers.length) { showToast('❌ No header row', 'error'); return; }
+                if (!headers.length) { showToast('No header row', 'error'); return; }
                 const cleanHeaders = headers.map(h => {
                     if (h === 'NO' || h === 'ID') return 'ID';
                     if (h === 'PC NAME') return 'PCNAME';
@@ -667,7 +699,7 @@
                     const row = rows[i];
                     if (row && row.some(c => c && c !== '' && c !== '-')) dataRows.push(row);
                 }
-                if (!dataRows.length) { showToast('⚠️ No data rows', 'warning'); return; }
+                if (!dataRows.length) { showToast('No data rows', 'warning'); return; }
                 const formFields = [];
                 cleanHeaders.forEach((h, idx) => {
                     if (!h || h === 'ID') return;
@@ -705,14 +737,14 @@
                 saveTabs();
                 renderTabs();
                 loadCurrentTab();
-                showToast(`✅ Imported ${tab.records.length} records, ${formFields.length} fields`, 'success');
-            } catch (err) { showToast('❌ Import error', 'error'); }
+                showToast(`Imported ${tab.records.length} records, ${formFields.length} fields`, 'success');
+            } catch (err) { showToast('Import error', 'error'); }
         };
         reader.readAsArrayBuffer(file);
     }
 
     function init() {
-        const stored = localStorage.getItem('kmh_mobile_pro_tabs');
+        const stored = localStorage.getItem('kmh_pro_tabs');
         if (stored) tabs = JSON.parse(stored);
         else tabs = [{ id: "tab_1", name: "My Data", records: [], fields: [], formFields: [], nextId: 1 }];
         currentTabId = localStorage.getItem('kmh_current_tab') || tabs[0]?.id;
@@ -722,7 +754,7 @@
         document.querySelectorAll('.draggable-item').forEach(el => { el.onclick = () => addManualField(el.dataset.type); });
     }
 
-    function saveTabs() { localStorage.setItem('kmh_mobile_pro_tabs', JSON.stringify(tabs)); }
+    function saveTabs() { localStorage.setItem('kmh_pro_tabs', JSON.stringify(tabs)); }
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
         const addBtn = container.querySelector('#addNewTableBtn');
@@ -735,7 +767,7 @@
             container.insertBefore(btn, addBtn);
         });
     }
-    window.editTabName = function(id) { const tab = tabs.find(t => t.id === id); if (tab) { const n = prompt('New name:', tab.name); if (n) { tab.name = n; saveTabs(); renderTabs(); if (currentTabId === id) document.getElementById('formNameInput').value = tab.name; showToast('✅ Renamed', 'success'); } } };
+    window.editTabName = function(id) { const tab = tabs.find(t => t.id === id); if (tab) { const n = prompt('New name:', tab.name); if (n) { tab.name = n; saveTabs(); renderTabs(); if (currentTabId === id) document.getElementById('formNameInput').value = tab.name; showToast('Renamed', 'success'); } } };
     function switchTab(id) { currentTabId = id; localStorage.setItem('kmh_current_tab', id); renderTabs(); loadCurrentTab(); }
     function loadCurrentTab() {
         const tab = tabs.find(t => t.id === currentTabId);
@@ -745,7 +777,7 @@
         renderPreviewForm();
         renderTable(tab);
         currentEditId = null;
-        document.getElementById('submitDynamicForm').textContent = '💾 Save';
+        document.getElementById('submitDynamicForm').textContent = 'Save';
         delete document.getElementById('submitDynamicForm').dataset.mode;
     }
     function renderTable(tab) {
@@ -755,7 +787,7 @@
         if (!fields.length || !tab.records.length) {
             document.getElementById('tableHeader').innerHTML = '';
             document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" style="text-align:center; padding:40px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields</p></div></td></tr>`;
-            document.getElementById('statsInfo').innerHTML = `📊 0 records`;
+            document.getElementById('statsInfo').innerHTML = `0 records`;
             return;
         }
         const display = ['id', ...fields.slice(0, 6)];
@@ -767,11 +799,11 @@
             html += `<td class="action-buttons"><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${r.id})">✏️ Edit</button><button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${r.id})">🗑️ Del</button></td></tr>`;
         });
         document.getElementById('tableBody').innerHTML = html;
-        document.getElementById('statsInfo').innerHTML = `📊 ${filtered.length}/${tab.records.length}`;
+        document.getElementById('statsInfo').innerHTML = `${filtered.length}/${tab.records.length} records`;
         document.querySelectorAll('#tableBody tr').forEach((row, i) => { row.onclick = () => showDetails(filtered[i]); });
     }
     function showDetails(r) { document.getElementById('detailsContainer').innerHTML = Object.entries(r).map(([k,v]) => `<div><strong>${k}:</strong> ${escapeHtml(String(v))}</div>`).join(''); }
-    window.deleteRecord = function(id) { if (confirm('Delete?')) { const t = tabs.find(t => t.id === currentTabId); t.records = t.records.filter(r => r.id !== id); saveTabs(); renderTable(t); showToast('✅ Deleted', 'success'); } };
+    window.deleteRecord = function(id) { if (confirm('Delete?')) { const t = tabs.find(t => t.id === currentTabId); t.records = t.records.filter(r => r.id !== id); saveTabs(); renderTable(t); showToast('Deleted', 'success'); } };
     window.editRecord = function(id) {
         const t = tabs.find(t => t.id === currentTabId);
         const r = t.records.find(r => r.id === id);
@@ -779,8 +811,8 @@
             currentEditId = id;
             currentFormFields.forEach(f => { f.value = r[f.name] !== undefined ? r[f.name] : ''; });
             renderPreviewForm();
-            document.getElementById('formStatus').innerHTML = `✏️ Editing ID: ${id}`;
-            document.getElementById('submitDynamicForm').textContent = '✏️ Update';
+            document.getElementById('formStatus').innerHTML = `Editing ID: ${id}`;
+            document.getElementById('submitDynamicForm').textContent = 'Update';
             document.getElementById('submitDynamicForm').dataset.mode = 'edit';
         }
     };
@@ -800,15 +832,15 @@
         const mode = btn.dataset.mode || 'add';
         if (mode === 'edit' && currentEditId) {
             const idx = t.records.findIndex(r => r.id === currentEditId);
-            if (idx !== -1) { t.records[idx] = { ...t.records[idx], ...data, id: currentEditId }; saveTabs(); showToast('✅ Updated', 'success'); }
-            btn.textContent = '💾 Save';
+            if (idx !== -1) { t.records[idx] = { ...t.records[idx], ...data, id: currentEditId }; saveTabs(); showToast('Updated', 'success'); }
+            btn.textContent = 'Save';
             delete btn.dataset.mode;
             currentEditId = null;
         } else {
             const newR = { id: t.nextId++, ...data };
             t.records.push(newR);
             saveTabs();
-            showToast('✅ Added', 'success');
+            showToast('Added', 'success');
         }
         Object.keys(data).forEach(k => { if (!t.fields.includes(k) && k !== 'id') t.fields.push(k); });
         saveTabs();
@@ -842,27 +874,28 @@
         c.innerHTML = html;
     }
     window.removeField = function(i) { currentFormFields.splice(i, 1); renderPreviewForm(); };
-    function saveFormToTab() { const t = tabs.find(t => t.id === currentTabId); const n = document.getElementById('formNameInput').value.trim(); if (n) t.name = n; t.formFields = JSON.parse(JSON.stringify(currentFormFields)); t.fields = currentFormFields.map(f => f.name); saveTabs(); renderTabs(); showToast('✅ Form saved', 'success'); }
-    function clearFormBuilder() { currentFormFields = []; renderPreviewForm(); document.getElementById('submitDynamicForm').textContent = '💾 Save'; delete document.getElementById('submitDynamicForm').dataset.mode; currentEditId = null; showToast('🗑️ Cleared', 'info'); }
-    function exportToExcel() { const t = tabs.find(t => t.id === currentTabId); if (!t.records.length) { showToast('⚠️ No data', 'warning'); return; } const ws = XLSX.utils.json_to_sheet(t.records); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, t.name); XLSX.writeFile(wb, `${t.name}_export.xlsx`); showToast('📁 Exported', 'success'); }
+    function saveFormToTab() { const t = tabs.find(t => t.id === currentTabId); const n = document.getElementById('formNameInput').value.trim(); if (n) t.name = n; t.formFields = JSON.parse(JSON.stringify(currentFormFields)); t.fields = currentFormFields.map(f => f.name); saveTabs(); renderTabs(); showToast('Form saved', 'success'); }
+    function clearFormBuilder() { currentFormFields = []; renderPreviewForm(); document.getElementById('submitDynamicForm').textContent = 'Save'; delete document.getElementById('submitDynamicForm').dataset.mode; currentEditId = null; showToast('Cleared', 'info'); }
+    function exportToExcel() { const t = tabs.find(t => t.id === currentTabId); if (!t.records.length) { showToast('No data', 'warning'); return; } const ws = XLSX.utils.json_to_sheet(t.records); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, t.name); XLSX.writeFile(wb, `${t.name}_export.xlsx`); showToast('Exported', 'success'); }
     function deleteAllDataWithPin() {
         const modal = document.createElement('div'); modal.className = 'pin-modal';
-        modal.innerHTML = `<div class="pin-modal-content"><i class="fas fa-shield-alt" style="font-size:48px; color:var(--danger);"></i><h3>Delete All Data</h3><p>Enter PIN (0000):</p><input type="password" id="pinInput" maxlength="4" placeholder="****" style="text-align:center; letter-spacing:6px;"><div style="display:flex; gap:12px;"><button id="confirmPinBtn" style="background:var(--danger); color:white; padding:12px; border-radius:40px; flex:1;">Confirm</button><button id="cancelPinBtn" class="btn-secondary" style="flex:1;">Cancel</button></div></div>`;
+        modal.innerHTML = `<div class="pin-modal-content"><i class="fas fa-shield-alt" style="font-size:48px; color:var(--danger);"></i><h3>Delete All Data</h3><p>Enter PIN (0000):</p><input type="password" id="pinInput" maxlength="4" placeholder="****" style="text-align:center; letter-spacing:6px;"><div style="display:flex; gap:12px; margin-top:16px;"><button id="confirmPinBtn" style="background:var(--danger); color:white; padding:10px; border-radius:40px; flex:1;">Confirm</button><button id="cancelPinBtn" class="btn-secondary" style="flex:1;">Cancel</button></div></div>`;
         document.body.appendChild(modal);
         modal.querySelector('#confirmPinBtn').onclick = () => {
             if (modal.querySelector('#pinInput').value === PIN_CODE) {
                 const t = tabs.find(t => t.id === currentTabId);
-                if (t) { t.records = []; t.nextId = 1; saveTabs(); renderTable(t); showToast('🗑️ All deleted', 'success'); }
+                if (t) { t.records = []; t.nextId = 1; saveTabs(); renderTable(t); showToast('All deleted', 'success'); }
                 modal.remove();
-            } else { showToast('❌ Wrong PIN', 'error'); modal.remove(); }
+            } else { showToast('Wrong PIN', 'error'); modal.remove(); }
         };
         modal.querySelector('#cancelPinBtn').onclick = () => modal.remove();
     }
-    function addNewTab() { const n = prompt('Tab name:', 'New Data'); if (n) { const id = 'tab_' + Date.now(); tabs.push({ id, name: n, records: [], fields: [], formFields: [], nextId: 1 }); saveTabs(); currentTabId = id; currentFormFields = []; renderTabs(); loadCurrentTab(); showToast('✨ New tab', 'success'); } }
-    function deleteTab(id) { if (tabs.length <= 1) { showToast('Cannot delete last tab', 'warning'); return; } if (confirm('Delete tab?')) { tabs = tabs.filter(t => t.id !== id); if (currentTabId === id) currentTabId = tabs[0]?.id; saveTabs(); renderTabs(); if (currentTabId) loadCurrentTab(); showToast('🗑️ Tab deleted', 'info'); } }
-    function editCurrentFormName() { const t = tabs.find(t => t.id === currentTabId); if (t) { const n = prompt('New name:', t.name); if (n) { t.name = n; saveTabs(); renderTabs(); document.getElementById('formNameInput').value = t.name; showToast('✅ Updated', 'success'); } } }
-    function showToast(msg, type) { const t = document.createElement('div'); t.className = 'toast-message'; t.style.background = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : type === 'warning' ? 'var(--warning)' : 'var(--dark)'; t.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${msg}`; document.body.appendChild(t); setTimeout(() => t.remove(), 2500); }
+    function addNewTab() { const n = prompt('Tab name:', 'New Data'); if (n) { const id = 'tab_' + Date.now(); tabs.push({ id, name: n, records: [], fields: [], formFields: [], nextId: 1 }); saveTabs(); currentTabId = id; currentFormFields = []; renderTabs(); loadCurrentTab(); showToast('New tab', 'success'); } }
+    function deleteTab(id) { if (tabs.length <= 1) { showToast('Cannot delete last tab', 'warning'); return; } if (confirm('Delete tab?')) { tabs = tabs.filter(t => t.id !== id); if (currentTabId === id) currentTabId = tabs[0]?.id; saveTabs(); renderTabs(); if (currentTabId) loadCurrentTab(); showToast('Tab deleted', 'info'); } }
+    function editCurrentFormName() { const t = tabs.find(t => t.id === currentTabId); if (t) { const n = prompt('New name:', t.name); if (n) { t.name = n; saveTabs(); renderTabs(); document.getElementById('formNameInput').value = t.name; showToast('Updated', 'success'); } } }
+    function showToast(msg, type) { const t = document.createElement('div'); t.className = 'toast-message'; t.style.background = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : type === 'warning' ? 'var(--warning)' : 'var(--gray-800)'; t.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${msg}`; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
     function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+    
     document.getElementById('searchInput').addEventListener('input', () => { const t = tabs.find(t => t.id === currentTabId); if (t) renderTable(t); });
     document.getElementById('submitDynamicForm').addEventListener('click', saveFormData);
     document.getElementById('saveFormToTab').addEventListener('click', saveFormToTab);
