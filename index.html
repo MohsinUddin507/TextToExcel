@@ -124,6 +124,42 @@
         .tab-btn:active {
             background: var(--primary-light);
         }
+        /* Tab Action Buttons - White Color */
+        .tab-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 4px;
+        }
+        .edit-tab-name, .delete-tab-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 2px 4px;
+            border-radius: 20px;
+            color: white !important;
+            transition: opacity 0.15s;
+        }
+        .edit-tab-name i, .delete-tab-btn i {
+            color: white !important;
+            text-shadow: 0 0 1px rgba(0,0,0,0.2);
+        }
+        .tab-btn:not(.active) .edit-tab-name i,
+        .tab-btn:not(.active) .delete-tab-btn i {
+            color: var(--gray-600) !important;
+        }
+        .tab-btn.active .edit-tab-name i,
+        .tab-btn.active .delete-tab-btn i {
+            color: white !important;
+        }
+        .edit-tab-name:hover, .delete-tab-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .tab-btn:not(.active) .edit-tab-name:hover,
+        .tab-btn:not(.active) .delete-tab-btn:hover {
+            background: rgba(0,0,0,0.1);
+        }
         .add-table-btn {
             background: var(--primary);
             color: white;
@@ -521,17 +557,6 @@
             border-color: #ffb3b3 !important;
             color: var(--danger) !important;
         }
-        .edit-tab-name, .delete-tab-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 20px;
-        }
-        .edit-tab-name:hover, .delete-tab-btn:hover {
-            background: rgba(0,0,0,0.05);
-        }
         
         @media (max-width: 380px) {
             body { padding: 8px; }
@@ -571,7 +596,7 @@
                 <table class="inventory-table" id="inventoryTable">
                     <thead id="tableHeader"></thead>
                     <tbody id="tableBody"></tbody>
-                
+     
             </div>
             <div class="detail-panel">
                 <strong>🔍 Record Details</strong>
@@ -762,7 +787,7 @@
         tabs.forEach(tab => {
             const btn = document.createElement('button');
             btn.className = `tab-btn ${currentTabId === tab.id ? 'active' : ''}`;
-            btn.innerHTML = `<span>${escapeHtml(tab.name)}</span><span class="tab-actions"><button class="edit-tab-name" onclick="event.stopPropagation(); editTabName('${tab.id}')"><i class="fas fa-pencil-alt"></i></button><button class="delete-tab-btn" onclick="event.stopPropagation(); deleteTab('${tab.id}')">✖</button></span>`;
+            btn.innerHTML = `<span>${escapeHtml(tab.name)}</span><span class="tab-actions"><button class="edit-tab-name" onclick="event.stopPropagation(); editTabName('${tab.id}')"><i class="fas fa-pencil-alt"></i></button><button class="delete-tab-btn" onclick="event.stopPropagation(); deleteTab('${tab.id}')"><i class="fas fa-times"></i></button></span>`;
             btn.onclick = () => switchTab(tab.id);
             container.insertBefore(btn, addBtn);
         });
@@ -786,17 +811,17 @@
         const fields = tab.fields;
         if (!fields.length || !tab.records.length) {
             document.getElementById('tableHeader').innerHTML = '';
-            document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" style="text-align:center; padding:40px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields</p></div></td></tr>`;
+            document.getElementById('tableBody').innerHTML = `趟<td colspan="100%" style="text-align:center; padding:40px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields</p></div><\/td>`;
             document.getElementById('statsInfo').innerHTML = `0 records`;
             return;
         }
         const display = ['id', ...fields.slice(0, 6)];
-        document.getElementById('tableHeader').innerHTML = '<tr>' + display.map(f => `<th>${f}</th>`).join('') + '<th>ACTIONS</th></tr>';
+        document.getElementById('tableHeader').innerHTML = '<tr>' + display.map(f => `<th>${f}</th>`).join('') + '<th>ACTIONS</th><\/tr>';
         let html = '';
         filtered.forEach(r => {
             html += '<tr style="cursor:pointer">';
-            display.forEach(f => { html += `<td>${escapeHtml(String(r[f] !== undefined && r[f] !== '' ? r[f] : '-'))}</td>`; });
-            html += `<td class="action-buttons"><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${r.id})">✏️ Edit</button><button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${r.id})">🗑️ Del</button></td></tr>`;
+            display.forEach(f => { html += `<td>${escapeHtml(String(r[f] !== undefined && r[f] !== '' ? r[f] : '-'))}<\/td>`; });
+            html += `<td class="action-buttons"><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${r.id})">✏️ Edit</button><button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${r.id})">🗑️ Del</button><\/td><\/tr>`;
         });
         document.getElementById('tableBody').innerHTML = html;
         document.getElementById('statsInfo').innerHTML = `${filtered.length}/${tab.records.length} records`;
