@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>KMH Enterprise Suite | Fully Responsive | Mobile/Tablet/Desktop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover, maximum-scale=1.0">
+    <title>KMH Pro Suite | Mobile-First Enterprise System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
@@ -14,32 +14,46 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        :root {
+            --primary: #1e405b;
+            --primary-dark: #0f5b7a;
+            --secondary: #2c7da0;
+            --success: #1e6f5c;
+            --danger: #c52828;
+            --warning: #e67e22;
+            --light: #f8fafc;
+            --gray: #e9edf2;
+            --dark: #1a2c3e;
+        }
+
         body {
-            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
             background: linear-gradient(135deg, #f5f7fc 0%, #eef2f7 100%);
             padding: 12px;
             min-height: 100vh;
-            color: #1a2c3e;
+            color: var(--dark);
         }
 
+        /* Mobile-First Container */
         .portal-container {
-            max-width: 1600px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
-        /* Header */
+        /* Header - Mobile Optimized */
         .header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 12px;
             margin-bottom: 20px;
-            border-bottom: 3px solid #0f5b7a;
+            border-bottom: 3px solid var(--primary-dark);
             padding-bottom: 12px;
         }
+        @media (min-width: 640px) {
+            .header { flex-direction: row; justify-content: space-between; align-items: center; }
+        }
         .title-section h1 {
-            font-size: clamp(1.3rem, 5vw, 2rem);
+            font-size: 1.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #0a2e3f, #1e6f5c);
             -webkit-background-clip: text;
@@ -47,172 +61,127 @@
             background-clip: text;
         }
         .title-section p {
-            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            font-size: 0.7rem;
             color: #4a627a;
+            margin-top: 4px;
         }
         .badge-area {
             background: white;
-            padding: 6px 16px;
+            padding: 6px 12px;
             border-radius: 40px;
-            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            font-size: 0.7rem;
             font-weight: 500;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            white-space: nowrap;
-        }
-        @media (max-width: 640px) {
-            .badge-area { white-space: normal; text-align: center; font-size: 0.7rem; }
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        /* Tabs Container - Horizontal Scroll on Mobile */
+        /* Tabs - Touch-Friendly Horizontal Scroll */
         .tabs-container {
             background: white;
             border-radius: 20px;
             padding: 8px 12px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: flex;
             flex-wrap: nowrap;
             gap: 8px;
-            align-items: center;
             overflow-x: auto;
             overflow-y: hidden;
             scrollbar-width: thin;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             -webkit-overflow-scrolling: touch;
-        }
-        .tabs-container::-webkit-scrollbar {
-            height: 4px;
+            scroll-snap-type: x mandatory;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .tab-btn {
-            padding: 8px 16px;
+            padding: 10px 18px;
             background: #f0f4f8;
             border: none;
-            border-radius: 30px;
+            border-radius: 40px;
             cursor: pointer;
             font-weight: 600;
-            font-size: clamp(0.75rem, 3vw, 0.85rem);
+            font-size: 0.8rem;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             transition: all 0.2s;
             flex-shrink: 0;
+            scroll-snap-align: start;
         }
         .tab-btn.active {
-            background: linear-gradient(135deg, #1e405b, #0f5b7a);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-        }
-        .tab-actions {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .edit-tab-name, .delete-tab-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 10px;
-            padding: 2px 4px;
-            border-radius: 12px;
-        }
-        .edit-tab-name:hover, .delete-tab-btn:hover {
-            background: rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(15,91,122,0.3);
         }
         .add-table-btn {
-            background: #1e405b;
+            background: var(--primary);
             color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: clamp(0.7rem, 3vw, 0.85rem);
-            white-space: nowrap;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
             flex-shrink: 0;
             margin-left: auto;
         }
 
-        /* Dashboard Grid - Responsive */
+        /* Mobile Collapsible Layout */
         .dashboard-grid {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 16px;
         }
-        .inventory-section {
-            flex: 2;
-            min-width: 280px;
-        }
-        .builder-section {
-            flex: 1.2;
-            min-width: 300px;
-            background: white;
-            border-radius: 24px;
-            padding: 20px;
-            position: sticky;
-            top: 12px;
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-        }
-        @media (max-width: 900px) {
-            .dashboard-grid { flex-direction: column; }
-            .builder-section { position: static; max-height: none; }
+        @media (min-width: 1024px) {
+            .dashboard-grid { flex-direction: row; }
+            .inventory-section { flex: 2; }
+            .builder-section { flex: 1.2; position: sticky; top: 12px; max-height: calc(100vh - 40px); overflow-y: auto; }
         }
 
-        /* Toolbar - Responsive */
+        /* Mobile-Optimized Toolbar */
         .toolbar {
             background: white;
             border-radius: 20px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
+            padding: 12px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
+        @media (min-width: 640px) {
+            .toolbar { flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; }
+        }
         .search-box {
-            flex: 1;
-            min-width: 180px;
+            width: 100%;
         }
         .search-box input {
             width: 100%;
-            padding: 10px 16px;
-            border-radius: 34px;
+            padding: 12px 16px;
+            border-radius: 40px;
             border: 1px solid #cbdbe0;
-            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            font-size: 0.9rem;
+            background: white;
         }
         .import-export-btns {
             display: flex;
-            flex-wrap: wrap;
             gap: 8px;
+            flex-wrap: wrap;
         }
         .import-export-btns button {
-            padding: 8px 14px;
-            border-radius: 30px;
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 40px;
             border: 1px solid #cbdbe0;
             background: white;
-            cursor: pointer;
-            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            font-size: 0.75rem;
             font-weight: 500;
             white-space: nowrap;
         }
-        @media (max-width: 640px) {
-            .toolbar { flex-direction: column; align-items: stretch; }
-            .import-export-btns { justify-content: center; }
-            .import-export-btns button { flex: 1; text-align: center; }
-        }
         .stats-info {
             background: #e9f0f5;
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 40px;
-            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
-            white-space: nowrap;
-        }
-        @media (max-width: 480px) {
-            .stats-info { white-space: normal; text-align: center; }
+            font-size: 0.75rem;
+            text-align: center;
         }
 
-        /* Table - Horizontal Scroll on Mobile */
+        /* Table - Horizontal Scroll with Touch */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 20px;
@@ -223,26 +192,32 @@
         .inventory-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            font-size: 0.75rem;
             min-width: 700px;
         }
         .inventory-table th {
-            background: #1e405b;
+            background: var(--primary);
             color: white;
             padding: 12px 10px;
             text-align: left;
-            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            font-weight: 600;
+            font-size: 0.7rem;
         }
         .inventory-table td {
             padding: 10px 10px;
-            border-bottom: 1px solid #e9edf2;
+            border-bottom: 1px solid var(--gray);
         }
-        .inventory-table tr:hover {
+        .inventory-table tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .inventory-table tr:active {
             background: #f0f8ff;
+            transform: scale(0.99);
         }
         .action-buttons {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         .edit-btn, .delete-btn {
@@ -250,40 +225,69 @@
             background: none;
             cursor: pointer;
             padding: 6px 10px;
-            border-radius: 20px;
-            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+            border-radius: 30px;
+            font-size: 0.7rem;
+            transition: 0.2s;
         }
-        @media (max-width: 480px) {
-            .edit-btn, .delete-btn { padding: 8px 12px; }
+        .edit-btn:active, .delete-btn:active { transform: scale(0.95); }
+
+        /* Form Builder - Mobile Optimized */
+        .builder-section {
+            background: white;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .builder-header h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        .form-name-input {
+            margin-bottom: 12px;
+        }
+        .form-name-input input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 40px;
+            border: 1px solid #cbdbe0;
+            font-size: 0.9rem;
+            background: #f9fbfd;
         }
 
-        /* Components Palette - Responsive */
+        /* Touch-Friendly Components Palette */
         .components-palette {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin: 16px 0;
             padding: 12px 0;
-            border-top: 1px solid #e2edf2;
+            border-top: 1px solid var(--gray);
         }
         .draggable-item {
-            background: #f8fafc;
+            background: linear-gradient(135deg, #fff, #f8fafc);
             border: 1px solid #cbdde6;
             border-radius: 40px;
-            padding: 8px 14px;
+            padding: 10px 16px;
             cursor: pointer;
-            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
-            transition: 0.2s;
+            font-size: 0.75rem;
+            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             flex: 0 0 auto;
+            -webkit-tap-highlight-color: transparent;
         }
         .draggable-item:active {
-            transform: scale(0.97);
-        }
-        @media (max-width: 480px) {
-            .draggable-item { padding: 8px 12px; font-size: 0.75rem; }
+            transform: scale(0.96);
+            background: #e9f0f5;
         }
 
         .form-builder-area {
@@ -292,48 +296,54 @@
             padding: 16px;
             min-height: 100px;
             border: 2px dashed #bcd0df;
-            margin: 16px 0;
+            margin: 12px 0;
             text-align: center;
         }
+
+        /* Form Preview - Mobile Optimized */
         .preview-form {
             background: white;
             border-radius: 20px;
             padding: 16px;
-            margin-top: 16px;
-            border: 1px solid #e2edf2;
-            max-height: 400px;
+            margin-top: 12px;
+            border: 1px solid var(--gray);
+            max-height: 450px;
             overflow-y: auto;
         }
         .form-field {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             position: relative;
             padding: 8px;
             background: #fefefe;
-            border-radius: 12px;
+            border-radius: 16px;
+            border: 1px solid #eef2f7;
         }
         .form-field label {
             display: block;
             font-weight: 600;
-            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+            font-size: 0.8rem;
             margin-bottom: 6px;
+            color: var(--primary);
         }
         .form-field input, .form-field select, .form-field textarea {
             width: 100%;
-            padding: 10px 12px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 16px;
             border: 1px solid #cbdbe0;
-            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            font-size: 0.9rem;
+            background: white;
         }
         .remove-field {
             position: absolute;
             right: 8px;
             top: 8px;
-            background: none;
+            background: rgba(197,40,40,0.1);
             border: none;
-            color: #c52828;
+            color: var(--danger);
             cursor: pointer;
-            font-size: 0.8rem;
-            padding: 4px;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 20px;
         }
         .form-actions {
             display: flex;
@@ -342,18 +352,19 @@
             margin-top: 16px;
         }
         .btn-primary, .btn-secondary {
-            padding: 10px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-            border: none;
             flex: 1;
-            min-width: 100px;
+            padding: 12px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
             text-align: center;
         }
+        .btn-primary:active, .btn-secondary:active { transform: scale(0.97); }
         .btn-primary {
-            background: linear-gradient(135deg, #1e405b, #0f5b7a);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
         }
         .btn-secondary {
@@ -361,110 +372,100 @@
             border: 1px solid #b9cfdf;
         }
 
+        /* Details Panel - Mobile Friendly */
         .detail-panel {
-            margin-top: 20px;
+            margin-top: 16px;
             background: white;
             border-radius: 20px;
-            border-left: 6px solid #2c7da0;
-            padding: 16px;
+            border-left: 4px solid var(--secondary);
+            padding: 14px;
         }
         .detail-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-template-columns: 1fr;
             gap: 10px;
             margin-top: 10px;
         }
-        @media (max-width: 480px) {
-            .detail-grid { grid-template-columns: 1fr; }
+        @media (min-width: 480px) {
+            .detail-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 768px) {
+            .detail-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* Modal - Responsive */
-        .modal-overlay {
+        /* Modal - Mobile Optimized */
+        .modal-overlay, .pin-modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2000;
             padding: 16px;
+            backdrop-filter: blur(4px);
         }
-        .modal-content {
+        .modal-content, .pin-modal-content {
             background: white;
             padding: 24px;
-            border-radius: 28px;
+            border-radius: 32px;
             width: 90%;
-            max-width: 500px;
+            max-width: 450px;
             max-height: 85vh;
             overflow-y: auto;
+            animation: modalSlideUp 0.3s ease;
         }
-        .modal-content h3 {
-            font-size: clamp(1.1rem, 4vw, 1.3rem);
+        @keyframes modalSlideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-content h3, .pin-modal-content h3 {
+            font-size: 1.2rem;
             margin-bottom: 16px;
         }
-        .modal-content input, .modal-content textarea, .modal-content select {
+        .modal-content input, .modal-content textarea {
             width: 100%;
-            padding: 10px 14px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 16px;
             border: 1px solid #cbdbe0;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-size: 0.9rem;
-        }
-
-        .pin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 16px;
-        }
-        .pin-modal-content {
-            background: white;
-            padding: 24px;
-            border-radius: 28px;
-            text-align: center;
-            max-width: 350px;
-            width: 90%;
         }
         .pin-modal-content input {
             width: 100%;
-            padding: 12px;
-            font-size: 24px;
+            padding: 14px;
+            font-size: 1.5rem;
             text-align: center;
-            letter-spacing: 6px;
-            border: 2px solid #cbdbe0;
-            border-radius: 16px;
+            letter-spacing: 8px;
+            border: 2px solid var(--gray);
+            border-radius: 20px;
             margin: 16px 0;
         }
 
+        /* Toast Messages */
         .toast-message {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1e405b;
+            background: var(--dark);
             color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            z-index: 1000;
-            animation: slideUp 0.3s ease;
-            font-size: clamp(0.75rem, 3vw, 0.85rem);
+            padding: 12px 20px;
+            border-radius: 50px;
+            z-index: 1100;
+            animation: toastUp 0.3s ease;
+            font-size: 0.8rem;
+            text-align: center;
             white-space: nowrap;
             max-width: 90%;
             white-space: normal;
-            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        @keyframes slideUp {
-            from { transform: translateX(-50%) translateY(100%); opacity: 0; }
+        @keyframes toastUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
             to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
@@ -475,27 +476,33 @@
         }
         .empty-state i {
             font-size: 48px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             opacity: 0.5;
         }
-        @media (max-width: 480px) {
-            .empty-state i { font-size: 36px; }
-            .empty-state h3 { font-size: 1rem; }
-            .empty-state p { font-size: 0.75rem; }
-        }
-
-        .danger-btn {
-            background: #fff5f5 !important;
-            border-color: #ff6b6b !important;
-            color: #c52828 !important;
-        }
         .smart-import-badge {
-            background: linear-gradient(135deg, #1e6f5c, #2c7da0);
+            background: linear-gradient(135deg, var(--success), var(--secondary));
             color: white;
             padding: 2px 8px;
             border-radius: 20px;
-            font-size: 10px;
-            margin-left: 6px;
+            font-size: 9px;
+            margin-left: 4px;
+        }
+        .danger-btn {
+            background: #fff5f5 !important;
+            border-color: #ffb3b3 !important;
+            color: var(--danger) !important;
+        }
+
+        /* Loading State */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 380px) {
+            body { padding: 8px; }
+            .tab-btn, .add-table-btn { padding: 8px 14px; font-size: 0.7rem; }
+            .btn-primary, .btn-secondary { padding: 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -503,10 +510,10 @@
 <div class="portal-container">
     <div class="header">
         <div class="title-section">
-            <h1>🚀 KMH Enterprise Suite</h1>
-            <p>Smart Excel Import | Custom Form Builder | Fully Responsive</p>
+            <h1>📱 KMH Pro Suite</h1>
+            <p>Mobile-First | Smart Import | Custom Forms</p>
         </div>
-        <div class="badge-area">💾 PIN: 0000 | Works on All Devices</div>
+        <div class="badge-area">🔐 PIN: 0000 | Touch Optimized</div>
     </div>
 
     <div class="tabs-container" id="tabsContainer">
@@ -522,7 +529,7 @@
                 <div class="import-export-btns">
                     <button id="importExcelBtn"><i class="fas fa-file-import"></i> Import <span class="smart-import-badge">Smart</span></button>
                     <button id="exportExcelBtn"><i class="fas fa-file-export"></i> Export</button>
-                    <button id="deleteAllDataBtn" class="danger-btn"><i class="fas fa-trash-alt"></i> Delete All</button>
+                    <button id="deleteAllDataBtn" class="danger-btn"><i class="fas fa-trash-alt"></i> Delete</button>
                 </div>
                 <div class="stats-info" id="statsInfo">📊 0 records</div>
             </div>
@@ -530,7 +537,7 @@
                 <table class="inventory-table" id="inventoryTable">
                     <thead id="tableHeader"></thead>
                     <tbody id="tableBody"></tbody>
-              
+                一张
             </div>
             <div class="detail-panel">
                 <strong>🔍 Record Details</strong>
@@ -539,12 +546,12 @@
         </div>
 
         <div class="builder-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
-                <h3 style="font-size: clamp(1rem, 4vw, 1.3rem);">🎨 Form Builder</h3>
-                <button id="editFormNameBtn" class="btn-secondary" style="padding: 6px 12px; font-size: 12px;"><i class="fas fa-edit"></i> Edit Name</button>
+            <div class="builder-header">
+                <h3>🎨 Form Builder</h3>
+                <button id="editFormNameBtn" class="btn-secondary" style="padding: 6px 12px; font-size: 11px;"><i class="fas fa-edit"></i> Edit</button>
             </div>
-            <div style="margin: 12px 0;">
-                <input type="text" id="formNameInput" placeholder="Form/Tab Name" style="width:100%; padding: 10px; border-radius:12px; border:1px solid #cbdbe0;">
+            <div class="form-name-input">
+                <input type="text" id="formNameInput" placeholder="Form/Tab Name">
             </div>
             
             <div class="components-palette">
@@ -559,32 +566,29 @@
             </div>
             
             <div class="form-builder-area" id="formBuilderDropZone">
-                <div style="text-align:center; color:#8ba0b2; padding: 16px;">
-                    <i class="fas fa-hand-pointer"></i> Tap any field above to add<br>
-                    <small>Customize label, placeholder & options</small>
+                <div style="text-align:center; color:#8ba0b2; padding: 12px;">
+                    <i class="fas fa-hand-pointer"></i> Tap any field above<br>
+                    <small>Customize label & options</small>
                 </div>
             </div>
             
             <div class="preview-form">
-                <h4 style="font-size: clamp(0.9rem, 3vw, 1rem);">📌 Live Form Preview</h4>
+                <h4 style="font-size: 0.9rem;">📌 Live Preview</h4>
                 <div id="previewFieldsContainer"></div>
                 <div class="form-actions">
-                    <button class="btn-primary" id="submitDynamicForm">💾 Save Record</button>
+                    <button class="btn-primary" id="submitDynamicForm">💾 Save</button>
                     <button class="btn-secondary" id="saveFormToTab">📁 Save Form</button>
                     <button class="btn-secondary" id="clearFormBuilder">🗑️ Clear</button>
                 </div>
-                <div id="formStatus" style="font-size:12px; margin-top:10px;"></div>
+                <div id="formStatus" style="font-size:11px; margin-top:8px;"></div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Complete JavaScript with same functionality as previous version
-    let tabs = [];
-    let currentTabId = null;
-    let currentEditId = null;
-    let currentFormFields = [];
+    // Mobile-Optimized Full JavaScript
+    let tabs = [], currentTabId = null, currentEditId = null, currentFormFields = [];
     const PIN_CODE = "0000";
 
     // Modal for manual field creation
@@ -593,48 +597,35 @@
         modal.className = 'modal-overlay';
         let optionsHtml = '';
         if (fieldType === 'select' || fieldType === 'radio') {
-            optionsHtml = `
-                <div class="options-input">
-                    <label>Options (one per line):</label>
-                    <textarea id="optionsText" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3"></textarea>
-                </div>
-            `;
+            optionsHtml = `<div style="margin-bottom:12px;"><label>Options (one per line):</label><textarea id="optionsText" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3" style="width:100%; padding:10px; border-radius:12px; border:1px solid #cbdbe0;"></textarea></div>`;
         }
         modal.innerHTML = `
             <div class="modal-content">
-                <h3><i class="fas fa-plus-circle"></i> Add ${fieldType === 'select' ? 'Dropdown' : fieldType === 'radio' ? 'Radio Buttons' : fieldType === 'textarea' ? 'Textarea' : fieldType === 'checkbox' ? 'Checkbox' : fieldType === 'date' ? 'Date Picker' : fieldType}</h3>
-                <label>Field Label *</label>
-                <input type="text" id="fieldLabel" placeholder="e.g., Full Name, Department">
-                <label>Field Name (optional)</label>
-                <input type="text" id="fieldName" placeholder="auto-generated">
-                <label>Placeholder / Hint</label>
-                <input type="text" id="fieldPlaceholder" placeholder="Enter ${fieldType === 'select' ? 'select option' : 'your answer'}">
+                <h3><i class="fas fa-plus-circle"></i> Add ${fieldType === 'select' ? 'Dropdown' : fieldType === 'radio' ? 'Radio' : fieldType === 'textarea' ? 'Textarea' : fieldType}</h3>
+                <input type="text" id="fieldLabel" placeholder="Field Label *" style="width:100%;">
+                <input type="text" id="fieldName" placeholder="Field Name (optional)">
+                <input type="text" id="fieldPlaceholder" placeholder="Placeholder / Hint">
                 ${optionsHtml}
-                <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
-                    <button id="cancelFieldBtn" class="btn-secondary">Cancel</button>
-                    <button id="addFieldBtn" class="btn-primary">Add Field</button>
+                <div style="display: flex; gap: 12px; margin-top: 16px;">
+                    <button id="cancelFieldBtn" class="btn-secondary" style="flex:1;">Cancel</button>
+                    <button id="addFieldBtn" class="btn-primary" style="flex:1;">Add Field</button>
                 </div>
             </div>
         `;
         document.body.appendChild(modal);
-        const fieldLabel = modal.querySelector('#fieldLabel');
-        const fieldName = modal.querySelector('#fieldName');
-        const fieldPlaceholder = modal.querySelector('#fieldPlaceholder');
-        fieldLabel.addEventListener('input', () => {
-            if (!fieldName.value) {
-                fieldName.value = fieldLabel.value.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            }
+        const labelInput = modal.querySelector('#fieldLabel');
+        const nameInput = modal.querySelector('#fieldName');
+        labelInput.addEventListener('input', () => {
+            if (!nameInput.value) nameInput.value = labelInput.value.toLowerCase().replace(/[^a-z0-9]/g, '_');
         });
         modal.querySelector('#addFieldBtn').onclick = () => {
-            const label = fieldLabel.value.trim();
+            const label = labelInput.value.trim();
             if (!label) { alert('Please enter field label'); return; }
-            const name = fieldName.value.trim() || label.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            const newField = { type: fieldType, label: label, name: name, placeholder: fieldPlaceholder.value.trim() };
+            const name = nameInput.value.trim() || label.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            const newField = { type: fieldType, label, name, placeholder: modal.querySelector('#fieldPlaceholder').value.trim() };
             if (fieldType === 'select' || fieldType === 'radio') {
-                const optionsText = modal.querySelector('#optionsText');
-                let options = optionsText ? optionsText.value.split(/\n/).filter(opt => opt.trim()) : [];
-                if (options.length === 0) options = ['Option 1', 'Option 2', 'Option 3'];
-                newField.options = options;
+                const opts = modal.querySelector('#optionsText')?.value.split(/\n/).filter(o => o.trim()) || [];
+                newField.options = opts.length ? opts : ['Option 1', 'Option 2', 'Option 3'];
             }
             callback(newField);
             modal.remove();
@@ -642,13 +633,7 @@
         modal.querySelector('#cancelFieldBtn').onclick = () => modal.remove();
     }
 
-    function addManualField(fieldType) {
-        showFieldModal(fieldType, (newField) => {
-            currentFormFields.push(newField);
-            renderPreviewForm();
-            showToast(`✅ Added "${newField.label}" field`, 'success');
-        });
-    }
+    function addManualField(type) { showFieldModal(type, (field) => { currentFormFields.push(field); renderPreviewForm(); showToast(`✅ Added "${field.label}"`, 'success'); }); }
 
     // Smart Excel Import
     function importExcelSmart(file) {
@@ -662,87 +647,82 @@
                 const sheet = workbook.Sheets[sheetName];
                 const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
                 if (rows.length < 2) { showToast('❌ No data', 'error'); return; }
-                let headerRowIndex = 0, headers = [];
-                for (let i = 0; i < Math.min(rows.length, 10); i++) {
+                let headerRow = 0, headers = [];
+                for (let i = 0; i < Math.min(rows.length, 8); i++) {
                     const row = rows[i];
-                    if (row && row.length > 0 && row.filter(c => c && c !== '' && c !== '-').length >= 2) {
-                        headerRowIndex = i;
+                    if (row && row.filter(c => c && c !== '').length >= 2) {
+                        headerRow = i;
                         headers = row.map(h => String(h || '').trim().toUpperCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' '));
                         break;
                     }
                 }
-                if (headers.length === 0) { showToast('❌ No header row', 'error'); return; }
+                if (!headers.length) { showToast('❌ No header row', 'error'); return; }
                 const cleanHeaders = headers.map(h => {
                     if (h === 'NO' || h === 'ID') return 'ID';
                     if (h === 'PC NAME') return 'PCNAME';
                     return h;
                 });
-                const allDataRows = [];
-                for (let i = headerRowIndex + 1; i < rows.length; i++) {
+                const dataRows = [];
+                for (let i = headerRow + 1; i < rows.length; i++) {
                     const row = rows[i];
-                    if (row && row.length > 0 && row.some(c => c && c !== '' && c !== '-')) allDataRows.push(row);
+                    if (row && row.some(c => c && c !== '' && c !== '-')) dataRows.push(row);
                 }
-                if (allDataRows.length === 0) { showToast('⚠️ No data rows', 'warning'); return; }
-                const generatedFormFields = [];
-                cleanHeaders.forEach((header, idx) => {
-                    if (!header || header === 'ID') return;
-                    const allValues = allDataRows.map(r => r[idx]).filter(v => v && v !== '' && v !== '-').map(v => String(v).trim());
-                    const uniqueValues = [...new Set(allValues)];
-                    let fieldType = 'text';
-                    if (header.toLowerCase().includes('email')) fieldType = 'email';
-                    else if (header.toLowerCase().includes('date')) fieldType = 'date';
-                    else if (header.toLowerCase().includes('id') || header.toLowerCase().includes('number')) fieldType = 'number';
-                    else if (uniqueValues.length >= 2 && uniqueValues.length <= 30 && uniqueValues.length < allValues.length / 2) fieldType = 'select';
-                    const field = { type: fieldType, label: header, name: header.toUpperCase().replace(/\s+/g, '_'), placeholder: `Enter ${header}` };
-                    if (fieldType === 'select' && uniqueValues.length > 0) field.options = uniqueValues;
-                    generatedFormFields.push(field);
+                if (!dataRows.length) { showToast('⚠️ No data rows', 'warning'); return; }
+                const formFields = [];
+                cleanHeaders.forEach((h, idx) => {
+                    if (!h || h === 'ID') return;
+                    const values = dataRows.map(r => r[idx]).filter(v => v && v !== '').map(v => String(v).trim());
+                    const unique = [...new Set(values)];
+                    let type = 'text';
+                    if (h.toLowerCase().includes('email')) type = 'email';
+                    else if (h.toLowerCase().includes('date')) type = 'date';
+                    else if (h.toLowerCase().includes('id') || h.toLowerCase().includes('number')) type = 'number';
+                    else if (unique.length >= 2 && unique.length <= 30 && unique.length < values.length / 2) type = 'select';
+                    const field = { type, label: h, name: h.toUpperCase().replace(/\s+/g, '_'), placeholder: `Enter ${h}` };
+                    if (type === 'select' && unique.length) field.options = unique;
+                    formFields.push(field);
                 });
                 let tab = tabs.find(t => t.id === currentTabId);
                 if (!tab) {
                     const newId = 'tab_' + Date.now();
-                    tab = { id: newId, name: sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported Data", records: [], fields: [], formFields: [], nextId: 1 };
+                    tab = { id: newId, name: sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported", records: [], fields: [], formFields: [], nextId: 1 };
                     tabs.push(tab);
                     currentTabId = newId;
                 }
                 tab.name = sheetName.replace(/[^a-zA-Z0-9\s]/g, '').trim() || "Imported Data";
-                tab.formFields = generatedFormFields;
-                tab.fields = generatedFormFields.map(f => f.name);
-                currentFormFields = generatedFormFields;
+                tab.formFields = formFields;
+                tab.fields = formFields.map(f => f.name);
+                currentFormFields = formFields;
                 tab.records = [];
                 tab.nextId = 1;
-                allDataRows.forEach(row => {
-                    const newRecord = { id: tab.nextId++ };
-                    cleanHeaders.forEach((header, colIndex) => {
-                        if (header && header !== '' && colIndex < row.length) {
-                            let value = row[colIndex];
-                            if (value && value !== '' && value !== '-') newRecord[header] = String(value).trim();
-                        }
+                dataRows.forEach(row => {
+                    const record = { id: tab.nextId++ };
+                    cleanHeaders.forEach((h, idx) => {
+                        if (h && h !== '' && row[idx] && row[idx] !== '' && row[idx] !== '-') record[h] = String(row[idx]).trim();
                     });
-                    if (Object.keys(newRecord).length > 1) tab.records.push(newRecord);
+                    if (Object.keys(record).length > 1) tab.records.push(record);
                 });
                 saveTabs();
                 renderTabs();
                 loadCurrentTab();
-                showToast(`✅ Imported ${tab.records.length} records, ${generatedFormFields.length} fields`, 'success');
-            } catch (error) { showToast('❌ Import error', 'error'); }
+                showToast(`✅ Imported ${tab.records.length} records, ${formFields.length} fields`, 'success');
+            } catch (err) { showToast('❌ Import error', 'error'); }
         };
         reader.readAsArrayBuffer(file);
     }
 
     function init() {
-        const stored = localStorage.getItem('kmh_responsive_tabs');
+        const stored = localStorage.getItem('kmh_mobile_pro_tabs');
         if (stored) tabs = JSON.parse(stored);
         else tabs = [{ id: "tab_1", name: "My Data", records: [], fields: [], formFields: [], nextId: 1 }];
         currentTabId = localStorage.getItem('kmh_current_tab') || tabs[0]?.id;
         if (currentTabId && !tabs.find(t => t.id === currentTabId)) currentTabId = tabs[0]?.id;
         renderTabs();
         loadCurrentTab();
-        document.querySelectorAll('.draggable-item').forEach(el => {
-            el.onclick = () => addManualField(el.dataset.type);
-        });
+        document.querySelectorAll('.draggable-item').forEach(el => { el.onclick = () => addManualField(el.dataset.type); });
     }
 
-    function saveTabs() { localStorage.setItem('kmh_responsive_tabs', JSON.stringify(tabs)); }
+    function saveTabs() { localStorage.setItem('kmh_mobile_pro_tabs', JSON.stringify(tabs)); }
     function renderTabs() {
         const container = document.getElementById('tabsContainer');
         const addBtn = container.querySelector('#addNewTableBtn');
@@ -755,11 +735,8 @@
             container.insertBefore(btn, addBtn);
         });
     }
-    window.editTabName = function(tabId) {
-        const tab = tabs.find(t => t.id === tabId);
-        if (tab) { const newName = prompt('Enter new name:', tab.name); if (newName) { tab.name = newName; saveTabs(); renderTabs(); if (currentTabId === tabId) document.getElementById('formNameInput').value = tab.name; showToast('✅ Renamed', 'success'); } }
-    };
-    function switchTab(tabId) { currentTabId = tabId; localStorage.setItem('kmh_current_tab', tabId); renderTabs(); loadCurrentTab(); }
+    window.editTabName = function(id) { const tab = tabs.find(t => t.id === id); if (tab) { const n = prompt('New name:', tab.name); if (n) { tab.name = n; saveTabs(); renderTabs(); if (currentTabId === id) document.getElementById('formNameInput').value = tab.name; showToast('✅ Renamed', 'success'); } } };
+    function switchTab(id) { currentTabId = id; localStorage.setItem('kmh_current_tab', id); renderTabs(); loadCurrentTab(); }
     function loadCurrentTab() {
         const tab = tabs.find(t => t.id === currentTabId);
         if (!tab) return;
@@ -768,39 +745,39 @@
         renderPreviewForm();
         renderTable(tab);
         currentEditId = null;
-        document.getElementById('submitDynamicForm').textContent = '💾 Save Record';
+        document.getElementById('submitDynamicForm').textContent = '💾 Save';
         delete document.getElementById('submitDynamicForm').dataset.mode;
     }
     function renderTable(tab) {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        let filtered = tab.records.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(searchTerm)));
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = tab.records.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(search)));
         const fields = tab.fields;
-        if (fields.length === 0 || tab.records.length === 0) {
+        if (!fields.length || !tab.records.length) {
             document.getElementById('tableHeader').innerHTML = '';
-            document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" style="text-align:center; padding:40px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields manually</p></div></td></tr>`;
+            document.getElementById('tableBody').innerHTML = `<tr><td colspan="100%" style="text-align:center; padding:40px;"><div class="empty-state"><i class="fas fa-table"></i><h3>No Data</h3><p>Import Excel or add fields</p></div></td></tr>`;
             document.getElementById('statsInfo').innerHTML = `📊 0 records`;
             return;
         }
-        const displayFields = ['id', ...fields.slice(0, 7)];
-        document.getElementById('tableHeader').innerHTML = '<tr>' + displayFields.map(f => `<th>${f}</th>`).join('') + '<th>ACTIONS</th></tr>';
+        const display = ['id', ...fields.slice(0, 6)];
+        document.getElementById('tableHeader').innerHTML = '<tr>' + display.map(f => `<th>${f}</th>`).join('') + '<th>ACTIONS</th></tr>';
         let html = '';
-        filtered.forEach(record => {
+        filtered.forEach(r => {
             html += '<tr style="cursor:pointer">';
-            displayFields.forEach(f => { let value = record[f] !== undefined && record[f] !== '' ? record[f] : '-'; html += `<td>${escapeHtml(String(value))}</td>`; });
-            html += `<td class="action-buttons"><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${record.id})">✏️ Edit</button><button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${record.id})">🗑️ Del</button></td></tr>`;
+            display.forEach(f => { html += `<td>${escapeHtml(String(r[f] !== undefined && r[f] !== '' ? r[f] : '-'))}</td>`; });
+            html += `<td class="action-buttons"><button class="edit-btn" onclick="event.stopPropagation(); editRecord(${r.id})">✏️ Edit</button><button class="delete-btn" onclick="event.stopPropagation(); deleteRecord(${r.id})">🗑️ Del</button></td></tr>`;
         });
         document.getElementById('tableBody').innerHTML = html;
-        document.getElementById('statsInfo').innerHTML = `📊 ${filtered.length} / ${tab.records.length} records`;
-        document.querySelectorAll('#tableBody tr').forEach((row, idx) => { row.addEventListener('click', () => showDetails(filtered[idx])); });
+        document.getElementById('statsInfo').innerHTML = `📊 ${filtered.length}/${tab.records.length}`;
+        document.querySelectorAll('#tableBody tr').forEach((row, i) => { row.onclick = () => showDetails(filtered[i]); });
     }
-    function showDetails(record) { document.getElementById('detailsContainer').innerHTML = Object.entries(record).map(([k,v]) => `<div><strong>${k}:</strong> ${escapeHtml(String(v))}</div>`).join(''); }
-    window.deleteRecord = function(id) { if (confirm('Delete?')) { const tab = tabs.find(t => t.id === currentTabId); tab.records = tab.records.filter(r => r.id !== id); saveTabs(); renderTable(tab); showToast('✅ Deleted', 'success'); } };
+    function showDetails(r) { document.getElementById('detailsContainer').innerHTML = Object.entries(r).map(([k,v]) => `<div><strong>${k}:</strong> ${escapeHtml(String(v))}</div>`).join(''); }
+    window.deleteRecord = function(id) { if (confirm('Delete?')) { const t = tabs.find(t => t.id === currentTabId); t.records = t.records.filter(r => r.id !== id); saveTabs(); renderTable(t); showToast('✅ Deleted', 'success'); } };
     window.editRecord = function(id) {
-        const tab = tabs.find(t => t.id === currentTabId);
-        const record = tab.records.find(r => r.id === id);
-        if (record) {
+        const t = tabs.find(t => t.id === currentTabId);
+        const r = t.records.find(r => r.id === id);
+        if (r) {
             currentEditId = id;
-            currentFormFields.forEach(f => { f.value = record[f.name] !== undefined ? record[f.name] : ''; });
+            currentFormFields.forEach(f => { f.value = r[f.name] !== undefined ? r[f.name] : ''; });
             renderPreviewForm();
             document.getElementById('formStatus').innerHTML = `✏️ Editing ID: ${id}`;
             document.getElementById('submitDynamicForm').textContent = '✏️ Update';
@@ -808,80 +785,92 @@
         }
     };
     function saveFormData() {
-        const formData = {};
-        document.querySelectorAll('#previewFieldsContainer .form-field').forEach(fieldDiv => {
-            const input = fieldDiv.querySelector('input, select, textarea');
-            const name = input?.dataset.fieldname;
-            if (name && input) {
-                if (input.type === 'checkbox') formData[name] = input.checked ? 'Yes' : 'No';
-                else if (input.type === 'radio') { const checked = fieldDiv.querySelector('input:checked'); if (checked) formData[name] = checked.value; }
-                else formData[name] = input.value;
+        const data = {};
+        document.querySelectorAll('#previewFieldsContainer .form-field').forEach(d => {
+            const inp = d.querySelector('input, select, textarea');
+            const name = inp?.dataset.fieldname;
+            if (name && inp) {
+                if (inp.type === 'checkbox') data[name] = inp.checked ? 'Yes' : 'No';
+                else if (inp.type === 'radio') { const c = d.querySelector('input:checked'); if (c) data[name] = c.value; }
+                else data[name] = inp.value;
             }
         });
-        const tab = tabs.find(t => t.id === currentTabId);
-        const submitBtn = document.getElementById('submitDynamicForm');
-        const mode = submitBtn.dataset.mode || 'add';
+        const t = tabs.find(t => t.id === currentTabId);
+        const btn = document.getElementById('submitDynamicForm');
+        const mode = btn.dataset.mode || 'add';
         if (mode === 'edit' && currentEditId) {
-            const index = tab.records.findIndex(r => r.id === currentEditId);
-            if (index !== -1) { tab.records[index] = { ...tab.records[index], ...formData, id: currentEditId }; saveTabs(); showToast('✅ Updated', 'success'); }
-            submitBtn.textContent = '💾 Save Record';
-            delete submitBtn.dataset.mode;
+            const idx = t.records.findIndex(r => r.id === currentEditId);
+            if (idx !== -1) { t.records[idx] = { ...t.records[idx], ...data, id: currentEditId }; saveTabs(); showToast('✅ Updated', 'success'); }
+            btn.textContent = '💾 Save';
+            delete btn.dataset.mode;
             currentEditId = null;
         } else {
-            const newRecord = { id: tab.nextId++, ...formData };
-            tab.records.push(newRecord);
+            const newR = { id: t.nextId++, ...data };
+            t.records.push(newR);
             saveTabs();
             showToast('✅ Added', 'success');
         }
-        Object.keys(formData).forEach(key => { if (!tab.fields.includes(key) && key !== 'id') tab.fields.push(key); });
+        Object.keys(data).forEach(k => { if (!t.fields.includes(k) && k !== 'id') t.fields.push(k); });
         saveTabs();
-        renderTable(tab);
+        renderTable(t);
         currentFormFields.forEach(f => delete f.value);
         renderPreviewForm();
         document.getElementById('formStatus').innerHTML = '';
     }
     function renderPreviewForm() {
-        const container = document.getElementById('previewFieldsContainer');
-        if (!currentFormFields.length) { container.innerHTML = '<div style="text-align:center; padding:20px; color:#8ba0b2;"><i class="fas fa-hand-pointer"></i> Tap any field above to add</div>'; return; }
+        const c = document.getElementById('previewFieldsContainer');
+        if (!currentFormFields.length) { c.innerHTML = '<div style="text-align:center; padding:20px; color:#8ba0b2;"><i class="fas fa-hand-pointer"></i> Tap fields above to add</div>'; return; }
         let html = '';
-        currentFormFields.forEach((field, idx) => {
-            const value = field.value || '';
-            html += `<div class="form-field"><button class="remove-field" onclick="removeField(${idx})">✖</button><label>${escapeHtml(field.label)}</label>`;
-            if (field.type === 'text' || field.type === 'number' || field.type === 'email' || field.type === 'date')
-                html += `<input type="${field.type}" data-fieldname="${field.name}" value="${escapeHtml(value)}" placeholder="${escapeHtml(field.placeholder || field.label)}">`;
-            else if (field.type === 'textarea')
-                html += `<textarea data-fieldname="${field.name}" rows="2" placeholder="${escapeHtml(field.placeholder || field.label)}">${escapeHtml(value)}</textarea>`;
-            else if (field.type === 'select') {
-                let opts = field.options || ['Option 1', 'Option 2'];
-                html += `<select data-fieldname="${field.name}">${opts.map(opt => `<option value="${opt}" ${value===opt?'selected':''}>${opt}</option>`).join('')}</select>`;
-            } else if (field.type === 'checkbox')
-                html += `<input type="checkbox" data-fieldname="${field.name}" ${value==='Yes'?'checked':''}> <span>${escapeHtml(field.placeholder || 'Check if applicable')}</span>`;
-            else if (field.type === 'radio') {
-                let opts = field.options || ['Option 1', 'Option 2'];
-                html += `<div>${opts.map(opt => `<label style="margin-right:12px;"><input type="radio" name="${field.name}" value="${opt}" ${value===opt?'checked':''}> ${opt}</label>`).join('')}</div>`;
+        currentFormFields.forEach((f, i) => {
+            const val = f.value || '';
+            html += `<div class="form-field"><button class="remove-field" onclick="removeField(${i})">✖</button><label>${escapeHtml(f.label)}</label>`;
+            if (f.type === 'text' || f.type === 'number' || f.type === 'email' || f.type === 'date')
+                html += `<input type="${f.type}" data-fieldname="${f.name}" value="${escapeHtml(val)}" placeholder="${escapeHtml(f.placeholder || f.label)}">`;
+            else if (f.type === 'textarea')
+                html += `<textarea data-fieldname="${f.name}" rows="2" placeholder="${escapeHtml(f.placeholder || f.label)}">${escapeHtml(val)}</textarea>`;
+            else if (f.type === 'select') {
+                const opts = f.options || ['Option 1', 'Option 2'];
+                html += `<select data-fieldname="${f.name}">${opts.map(o => `<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join('')}</select>`;
+            } else if (f.type === 'checkbox')
+                html += `<input type="checkbox" data-fieldname="${f.name}" ${val==='Yes'?'checked':''}> <span>${escapeHtml(f.placeholder || 'Check')}</span>`;
+            else if (f.type === 'radio') {
+                const opts = f.options || ['Option 1', 'Option 2'];
+                html += `<div>${opts.map(o => `<label style="margin-right:12px;"><input type="radio" name="${f.name}" value="${o}" ${val===o?'checked':''}> ${o}</label>`).join('')}</div>`;
             }
             html += `</div>`;
         });
-        container.innerHTML = html;
+        c.innerHTML = html;
     }
-    window.removeField = function(idx) { currentFormFields.splice(idx, 1); renderPreviewForm(); };
-    function saveFormToTab() { const tab = tabs.find(t => t.id === currentTabId); const name = document.getElementById('formNameInput').value.trim(); if (name) tab.name = name; tab.formFields = JSON.parse(JSON.stringify(currentFormFields)); tab.fields = currentFormFields.map(f => f.name); saveTabs(); renderTabs(); showToast(`✅ Form saved`, 'success'); }
-    function clearFormBuilder() { currentFormFields = []; renderPreviewForm(); document.getElementById('submitDynamicForm').textContent = '💾 Save Record'; delete document.getElementById('submitDynamicForm').dataset.mode; currentEditId = null; showToast('🗑️ Cleared', 'info'); }
-    function exportToExcel() { const tab = tabs.find(t => t.id === currentTabId); if (!tab.records.length) { showToast('⚠️ No data', 'warning'); return; } const ws = XLSX.utils.json_to_sheet(tab.records); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, tab.name); XLSX.writeFile(wb, `${tab.name}_export.xlsx`); showToast(`📁 Exported`, 'success'); }
-    function deleteAllDataWithPin() { const modal = document.createElement('div'); modal.className = 'pin-modal'; modal.innerHTML = `<div class="pin-modal-content"><i class="fas fa-shield-alt" style="font-size:48px; color:#c52828;"></i><h3>Delete All Data</h3><p>Enter PIN (0000):</p><input type="password" id="pinInput" maxlength="4" placeholder="****"><div style="display:flex; gap:12px;"><button id="confirmPinBtn" style="background:#c52828; color:white; padding:10px; border-radius:30px; flex:1;">Confirm</button><button id="cancelPinBtn" class="btn-secondary" style="flex:1;">Cancel</button></div></div>`; document.body.appendChild(modal); const pinInput = modal.querySelector('#pinInput'); modal.querySelector('#confirmPinBtn').onclick = () => { if (pinInput.value === PIN_CODE) { const tab = tabs.find(t => t.id === currentTabId); if (tab) { tab.records = []; tab.nextId = 1; saveTabs(); renderTable(tab); showToast('🗑️ All data deleted', 'success'); } modal.remove(); } else { showToast('❌ Wrong PIN', 'error'); modal.remove(); } }; modal.querySelector('#cancelPinBtn').onclick = () => modal.remove(); }
-    function addNewTab() { const name = prompt('Enter tab name:', 'New Data'); if (name) { const newId = 'tab_' + Date.now(); tabs.push({ id: newId, name: name, records: [], fields: [], formFields: [], nextId: 1 }); saveTabs(); currentTabId = newId; currentFormFields = []; renderTabs(); loadCurrentTab(); showToast(`✨ New tab created`, 'success'); } }
-    function deleteTab(tabId) { if (tabs.length <= 1) { showToast('Cannot delete last tab', 'warning'); return; } if (confirm('Delete this tab?')) { tabs = tabs.filter(t => t.id !== tabId); if (currentTabId === tabId) currentTabId = tabs[0]?.id; saveTabs(); renderTabs(); if (currentTabId) loadCurrentTab(); showToast('🗑️ Tab deleted', 'info'); } }
-    function editCurrentFormName() { const tab = tabs.find(t => t.id === currentTabId); if (tab) { const newName = prompt('Enter new name:', tab.name); if (newName) { tab.name = newName; saveTabs(); renderTabs(); document.getElementById('formNameInput').value = tab.name; showToast('✅ Name updated', 'success'); } } }
-    function showToast(msg, type) { const toast = document.createElement('div'); toast.className = 'toast-message'; toast.style.background = type === 'success' ? '#1e6f5c' : type === 'error' ? '#c52828' : type === 'warning' ? '#e67e22' : '#2c7da0'; toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${msg}`; document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000); }
-    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
-    document.getElementById('searchInput').addEventListener('input', () => { const tab = tabs.find(t => t.id === currentTabId); if (tab) renderTable(tab); });
+    window.removeField = function(i) { currentFormFields.splice(i, 1); renderPreviewForm(); };
+    function saveFormToTab() { const t = tabs.find(t => t.id === currentTabId); const n = document.getElementById('formNameInput').value.trim(); if (n) t.name = n; t.formFields = JSON.parse(JSON.stringify(currentFormFields)); t.fields = currentFormFields.map(f => f.name); saveTabs(); renderTabs(); showToast('✅ Form saved', 'success'); }
+    function clearFormBuilder() { currentFormFields = []; renderPreviewForm(); document.getElementById('submitDynamicForm').textContent = '💾 Save'; delete document.getElementById('submitDynamicForm').dataset.mode; currentEditId = null; showToast('🗑️ Cleared', 'info'); }
+    function exportToExcel() { const t = tabs.find(t => t.id === currentTabId); if (!t.records.length) { showToast('⚠️ No data', 'warning'); return; } const ws = XLSX.utils.json_to_sheet(t.records); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, t.name); XLSX.writeFile(wb, `${t.name}_export.xlsx`); showToast('📁 Exported', 'success'); }
+    function deleteAllDataWithPin() {
+        const modal = document.createElement('div'); modal.className = 'pin-modal';
+        modal.innerHTML = `<div class="pin-modal-content"><i class="fas fa-shield-alt" style="font-size:48px; color:var(--danger);"></i><h3>Delete All Data</h3><p>Enter PIN (0000):</p><input type="password" id="pinInput" maxlength="4" placeholder="****" style="text-align:center; letter-spacing:6px;"><div style="display:flex; gap:12px;"><button id="confirmPinBtn" style="background:var(--danger); color:white; padding:12px; border-radius:40px; flex:1;">Confirm</button><button id="cancelPinBtn" class="btn-secondary" style="flex:1;">Cancel</button></div></div>`;
+        document.body.appendChild(modal);
+        modal.querySelector('#confirmPinBtn').onclick = () => {
+            if (modal.querySelector('#pinInput').value === PIN_CODE) {
+                const t = tabs.find(t => t.id === currentTabId);
+                if (t) { t.records = []; t.nextId = 1; saveTabs(); renderTable(t); showToast('🗑️ All deleted', 'success'); }
+                modal.remove();
+            } else { showToast('❌ Wrong PIN', 'error'); modal.remove(); }
+        };
+        modal.querySelector('#cancelPinBtn').onclick = () => modal.remove();
+    }
+    function addNewTab() { const n = prompt('Tab name:', 'New Data'); if (n) { const id = 'tab_' + Date.now(); tabs.push({ id, name: n, records: [], fields: [], formFields: [], nextId: 1 }); saveTabs(); currentTabId = id; currentFormFields = []; renderTabs(); loadCurrentTab(); showToast('✨ New tab', 'success'); } }
+    function deleteTab(id) { if (tabs.length <= 1) { showToast('Cannot delete last tab', 'warning'); return; } if (confirm('Delete tab?')) { tabs = tabs.filter(t => t.id !== id); if (currentTabId === id) currentTabId = tabs[0]?.id; saveTabs(); renderTabs(); if (currentTabId) loadCurrentTab(); showToast('🗑️ Tab deleted', 'info'); } }
+    function editCurrentFormName() { const t = tabs.find(t => t.id === currentTabId); if (t) { const n = prompt('New name:', t.name); if (n) { t.name = n; saveTabs(); renderTabs(); document.getElementById('formNameInput').value = t.name; showToast('✅ Updated', 'success'); } } }
+    function showToast(msg, type) { const t = document.createElement('div'); t.className = 'toast-message'; t.style.background = type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : type === 'warning' ? 'var(--warning)' : 'var(--dark)'; t.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i> ${msg}`; document.body.appendChild(t); setTimeout(() => t.remove(), 2500); }
+    function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+    document.getElementById('searchInput').addEventListener('input', () => { const t = tabs.find(t => t.id === currentTabId); if (t) renderTable(t); });
     document.getElementById('submitDynamicForm').addEventListener('click', saveFormData);
     document.getElementById('saveFormToTab').addEventListener('click', saveFormToTab);
     document.getElementById('clearFormBuilder').addEventListener('click', clearFormBuilder);
     document.getElementById('exportExcelBtn').addEventListener('click', exportToExcel);
     document.getElementById('deleteAllDataBtn').addEventListener('click', deleteAllDataWithPin);
     document.getElementById('editFormNameBtn').addEventListener('click', editCurrentFormName);
-    document.getElementById('importExcelBtn').addEventListener('click', () => { const input = document.createElement('input'); input.type = 'file'; input.accept = '.xlsx, .xls, .csv'; input.onchange = (e) => { if (e.target.files[0]) importExcelSmart(e.target.files[0]); }; input.click(); });
+    document.getElementById('importExcelBtn').addEventListener('click', () => { const i = document.createElement('input'); i.type = 'file'; i.accept = '.xlsx, .xls, .csv'; i.onchange = (e) => { if (e.target.files[0]) importExcelSmart(e.target.files[0]); }; i.click(); });
     document.getElementById('addNewTableBtn').addEventListener('click', addNewTab);
     init();
 </script>
